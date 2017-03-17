@@ -19,16 +19,6 @@ app.get('/', function (req,res) {
 });
 
 
-app.get('/api/:page', function(req, res) {
-
-    Model.find().sort('brand').skip((page-1)*100).limit(100).exec(function(err, results) {
-        res.render('browse.ejs', {data:data, results:results});
-    });
-})
-
-
-
-
 app.get('/api/workers',function (req,res) {
     Worker.getWorkers(function (err, workers) {
         if(err){

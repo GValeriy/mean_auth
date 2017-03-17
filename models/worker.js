@@ -48,8 +48,7 @@ Worker.paginate({}, { page: 1, limit: 3 }, function(err, result) {
     // result.page - 3
     // result.pages
 
-    console.log(result.docs, result.total, result.limit, result.page, result.pages);
-    return result.docs;
+
 
 });
 
