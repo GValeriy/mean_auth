@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var mongoosePaginate = require('mongoose-paginate');
 //Workers Schema
 
 var workerSchema = mongoose.Schema({
@@ -35,7 +35,24 @@ var workerSchema = mongoose.Schema({
         default: Date.now
     }
 });
+
+workerSchema.plugin(mongoosePaginate);
+
 var Worker = module.export = mongoose.model('Worker', workerSchema);
+
+
+Worker.paginate({}, { page: 1, limit: 3 }, function(err, result) {
+    // result.docs
+    // result.total
+    // result.limit - 10
+    // result.page - 3
+    // result.pages
+
+    console.log(result.docs, result.total, result.limit, result.page, result.pages);
+    return result.docs;
+
+});
+
 
 //GET workers
 module.exports.getWorkers = function(callback, limit) {
@@ -67,7 +84,6 @@ module.exports.updateWorker = function (id, worker, options, callback) {
     };
     Worker.findOneAndUpdate(query, update, options, callback);
 };
-
 
 //Delete Worker
 module.exports.removeWorker = function(id,callback) {

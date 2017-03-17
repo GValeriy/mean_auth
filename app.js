@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+var paginate = require('express-paginate');
 
 app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
@@ -15,6 +17,16 @@ var db = mongoose.connection;
 app.get('/', function (req,res) {
     res.send('Hello word');
 });
+
+
+app.get('/api/:page', function(req, res) {
+
+    Model.find().sort('brand').skip((page-1)*100).limit(100).exec(function(err, results) {
+        res.render('browse.ejs', {data:data, results:results});
+    });
+})
+
+
 
 
 app.get('/api/workers',function (req,res) {

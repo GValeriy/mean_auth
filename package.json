@@ -11,6 +11,8 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "mongoose": "^4.5.8"
+    "express-paginate": "^0.2.2",
+    "mongoose": "^4.5.8",
+    "mongoose-paginate": "^5.0.3"
   }
 }
