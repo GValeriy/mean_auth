@@ -38,19 +38,11 @@ var workerSchema = mongoose.Schema({
 
 workerSchema.plugin(mongoosePaginate);
 
-var Worker = module.export = mongoose.model('Worker', workerSchema);
+var Worker = module.exports = mongoose.model('Worker', workerSchema);
+
+module.exports.paginate = Worker.paginate;
 
 
-Worker.paginate({}, { page: 1, limit: 3 }, function(err, result) {
-    // result.docs
-    // result.total
-    // result.limit - 10
-    // result.page - 3
-    // result.pages
-
-
-
-});
 
 
 //GET workers

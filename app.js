@@ -2,31 +2,43 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var mongoosePaginate = require('mongoose-paginate');
-var paginate = require('express-paginate');
-
 app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
 
-Worker = require('./models/worker');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+
+var Worker = require('./models/worker');
+var users = require('./routes/users');
 
 //connect to mongoose
 mongoose.connect('mongodb://localhost/workerstore');
 var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log('Database connected successfully');
+});
+
+
+app.use('/api/workers', users);
+
 
 app.get('/', function (req,res) {
     res.send('Hello word');
 });
 
+// app.get('/api/workers',function (req,res) {
+//     Worker.getWorkers(function (err, workers) {
+//         if (err) {
+//             throw err;
+//         }
+//         res.json(workers);
+//     })
+// });
 
-app.get('/api/workers',function (req,res) {
-    Worker.getWorkers(function (err, workers) {
-        if(err){
-            throw err;
-        }
-        res.json(workers);
-    })
-});
+
 
 app.get('/api/workers/:_id',function (req,res) {
     Worker.getWorkerById(req.params._id, function (err, worker) {

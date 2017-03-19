@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="lib/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap-material-design.css">
     <link rel="stylesheet" href="css/style.css">
+
+
 </head>
 
 <body ng-controller="WorkersController">
@@ -78,28 +80,18 @@
                                data-target="#editModal"> Edit </a>
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
                         </td>
-
                     </tr>
+
+
                     </tbody>
                 </table>
 
-                <div class="paggition">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Preview" ng-click="previousPage()">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li><a href="#">{{currentPage}}/{{numberOfPages()}}</a></li>
-                            <li ng-class="{'disabled': check()}">
-                                <a href="#" aria-label="Next" ng-click="nextPage()">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                <option>3</option><option>5</option><option>10</option><option>20</option>
+                <option>30</option><option>40</option><option>50</option></select> records at a time.
+
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
+
 
 
                 <!-- Edit Modal -->
@@ -233,10 +225,7 @@
                                                             <div class="col-md-10 col-md-offset-2">
 
                                                                 <a href="/#/">
-                                                                    <button type="submit"
-
-                                                                            ng-click="updateWorker(worker._id)"
-                                                                            class="btn btn-primary">Submit
+                                                                    <button type="submit" class="btn btn-primary"   ng-click="updateWorker(worker._id)" data-dismiss="modal">Submit
                                                                     </button>
                                                                 </a>
                                                                 <button type="reset" class="btn btn-default">Reset
@@ -382,7 +371,7 @@
 
                                         <div class="form-group">
                                             <div class="col-md-10 col-md-offset-2">
-                                                <button type="submit" href="/#/"  class="btn btn-primary" ng-click="addWorker()" >Submit
+                                                <button type="submit" href="/#/"  class="btn btn-primary" ng-click="addWorker()" data-dismiss="modal"  >Submit
                                                 </button>
                                                 <button type="reset" class="btn btn-default">Reset</button>
                                             </div>
@@ -404,6 +393,7 @@
 <script src="lib/bootstrap.min.js"></script>
 <script src="js/controllers/workers.js"></script>
 <script src="js/services/crud.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 
 </body>
 </html>

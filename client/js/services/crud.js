@@ -1,25 +1,37 @@
 myApp.service('myService', ['$http', function ($http) {
 
     this.getWorker = function (id) {
-        var url = "/api/workers/" + id;
-        return $http.get(url);
+        var getWorker = $http.get("/api/workers/" + id);
+        return getWorker;
     };
 
     this.addWorker = function (worker) {
-        return $http.post('/api/workers/', worker);
+        var addWorker = $http.post('/api/workers/', worker);
+        return addWorker;
     }
-    this.updateWorker = function (id) {
-        return $http.put('/api/workers/' + id, this.worker);
+
+    this.updateWorker = function (id, worker) {
+    return $http.put('/api/workers/' + id, worker);
     };
 
 
-    this.getWorkers = function () {
-     return $http.get("/api/workers/");
+
+    this.getWorkers = function (page) {
+
+     var getWorkers = $http.get("/api/workers", {
+         params: {
+             page: page
+         }
+     });
+
+     return getWorkers;
+
     };
 
 
     this.removeWorker = function (id) {
-      return  $http.delete('/api/workers/' + id);
+        var removeWorker=$http.delete('/api/workers/' + id);
+      return  removeWorker;
     };
 
 
