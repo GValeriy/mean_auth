@@ -42,9 +42,6 @@ var Worker = module.exports = mongoose.model('Worker', workerSchema);
 
 module.exports.paginate = Worker.paginate;
 
-
-
-
 //GET workers
 module.exports.getWorkers = function(callback, limit) {
     Worker.find(callback).limit(limit);
