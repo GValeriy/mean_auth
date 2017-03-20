@@ -3,7 +3,6 @@ myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
     console.log("ModalDemoCtrl loaded... ")
 
     var $ctrl = this;
-    $ctrl.items = ['item1', 'item2', 'item3'];
 
     $ctrl.animationsEnabled = true;
 
@@ -21,9 +20,7 @@ myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
             size: size,
             appendTo: parentElem,
             resolve: {
-                items: function () {
-                    return $ctrl.items;
-                }
+
             }
         });
 
@@ -44,21 +41,12 @@ myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-myApp.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+myApp.controller('ModalInstanceCtrl', function ($uibModalInstance) {
 
     var $ctrl = this;
-    $ctrl.items = items;
-    $ctrl.selected = {
-        item: $ctrl.items[0]
-    };
-
-
-
-
-
 
     $ctrl.ok = function () {
-        $uibModalInstance.close($ctrl.selected.item);
+        $uibModalInstance.close();
     }; // submit button
 
     $ctrl.cancel = function () {

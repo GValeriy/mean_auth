@@ -1,5 +1,7 @@
 var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize','ui.bootstrap']);
 // 'ngAnimate', 'ngSanitize',
+
+
 myApp.controller('WorkersController', ['$scope', '$http', 'myService', function ($scope, $http, myService) {
     console.log("WorkersController loaded... ")
 
