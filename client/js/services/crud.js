@@ -10,13 +10,6 @@ myApp.service('myService', ['$http', function ($http) {
         return addWorker;
     }
 
-
-    // this.updateWorker = function (id, worker) {
-    //
-    //     var updateWork =  $http.put('/api/workers/' + id, worker)
-    // return updateWork;
-    // };
-
     this.getWorkers = function (page) {
      var getWorkers = $http.get("/api/workers", {
          params: {
@@ -26,11 +19,9 @@ myApp.service('myService', ['$http', function ($http) {
      return getWorkers;
     };
 
-
     this.removeWorker = function (id) {
         var removeWorker=$http.delete('/api/workers/' + id);
       return  removeWorker;
     };
-
 
 }]);

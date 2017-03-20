@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize','ui.bootstrap']);
 // 'ngAnimate', 'ngSanitize',
-myApp.controller('WorkersController', ['$scope', '$http', 'myService', function ($scope, $http, myService) {
+myApp.controller('WorkersController', ['$scope', '$http', 'myService', function ($uibModalInstance, $scope, $http, myService) {
     console.log("WorkersController loaded... ")
 
     myService.getWorkers($scope.currentPage).success(function (response) {
@@ -61,5 +61,11 @@ myApp.controller('WorkersController', ['$scope', '$http', 'myService', function 
             }
         }
     };
+$ctrl.ok = function () {
+    $uibModalInstance.close($ctrl.selected.item);
+}; // submit button
 
+$ctrl.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+}; // cancel button
 }]);

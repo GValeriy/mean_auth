@@ -1,18 +1,20 @@
-myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
-    var $ctrl = this;
-    $ctrl.items = ['item1', 'item2', 'item3'];
 
+myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
+    console.log("ModalDemoCtrl loaded... ")
+
+    var $ctrl = this;
     $ctrl.animationsEnabled = true;
 
     $ctrl.open = function (size, parentSelector) {
+
         var parentElem = parentSelector ?
-            angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+            angular.element($document[0].querySelector('.modal-demo' + parentSelector)) : undefined;
         var modalInstance = $uibModal.open({
             animation: $ctrl.animationsEnabled,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
+            controller: 'WorkersController',
             controllerAs: '$ctrl',
             size: size,
             appendTo: parentElem,
@@ -23,11 +25,6 @@ myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-            $ctrl.selected = selectedItem;
-        }, function () {
-            console.log('Modal dismissed at: ' + new Date());
-        });
     };
 
     $ctrl.openComponentModal = function () {
@@ -35,16 +32,8 @@ myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
             animation: $ctrl.animationsEnabled,
             component: 'modalComponent',
             resolve: {
-                items: function () {
-                    return $ctrl.items;
-                }
-            }
-        });
 
-        modalInstance.result.then(function (selectedItem) {
-            $ctrl.selected = selectedItem;
-        }, function () {
-            $log.info('modal-component dismissed at: ' + new Date());
+            }
         });
     };
 
@@ -53,23 +42,25 @@ myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-myApp.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
-
-    var $ctrl = this;
-
-    $ctrl.items = items;
-
-    $ctrl.selected = {
-        item: $ctrl.items[0]
-    };
-
-    $ctrl.ok = function () {
-        $uibModalInstance.close($ctrl.selected.item);
-    }; // submit button
-
-    $ctrl.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    }; // cancel button
-
-});
+// myApp.controller('ModalInstanceCtrl', function ($uibModalInstance, myService) {
+//
+//
+//     myService.getWorkers($scope.currentPage).success(function (response) {
+//         $scope.itemsPerPage = response.limit;
+//         $scope.totalItems = response.total;
+//         $scope.currentPage = response.page;
+//         $scope.workers = response.docs;
+//     });
+//
+//
+//
+//     $ctrl.ok = function () {
+//         $uibModalInstance.close($ctrl.selected.item);
+//     }; // submit button
+//
+//     $ctrl.cancel = function () {
+//         $uibModalInstance.dismiss('cancel');
+//     }; // cancel button
+//
+// });
 
