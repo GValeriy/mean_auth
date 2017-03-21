@@ -1,49 +1,14 @@
 
-myApp.controller('ModalDemoCtrl', function ($uibModal, $log, $document) {
-    console.log("ModalDemoCtrl loaded... ")
+myApp.controller('ModalInstanceCtrl', function ($scope,$uibModalInstance, $http, myService) {
+    console.log("ModalInstanceCtrl loaded... ")
 
     var $ctrl = this;
 
-    $ctrl.animationsEnabled = true;
-
-    $ctrl.open = function (size, parentSelector) {
-
-        var parentElem = parentSelector ?
-            angular.element($document[0].querySelector('.modal-demo' + parentSelector)) : undefined;
-        var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            controllerAs: '$ctrl',
-            size: size,
-            appendTo: parentElem,
-            resolve: {
-
-            }
-        });
-
-    };
-
-    $ctrl.openComponentModal = function () {
-        var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
-            component: 'modalComponent',
-            resolve: {
-
-            }
+    $scope.addWorker = function () {
+        myService.addWorker($scope.worker).success(function (response) {
+            console.log($scope.worker, "- worker", $scope.workers, "- workers");
         });
     };
-
-});
-
-// Please note that $uibModalInstance represents a modal window (instance) dependency.
-// It is not the same as the $uibModal service used above.
-
-myApp.controller('ModalInstanceCtrl', function ($uibModalInstance) {
-
-    var $ctrl = this;
 
     $ctrl.ok = function () {
         $uibModalInstance.close();
@@ -55,3 +20,45 @@ myApp.controller('ModalInstanceCtrl', function ($uibModalInstance) {
 
 });
 
+myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance,  $http, myService) {
+    console.log("ModalInstanceCtrl loaded... ")
+
+    var $ctrl = this;
+
+    // $scope.getWorker = function (worker_id) {
+    //     console.log($scope.worker);
+    //     myService.getWorker(id).success(function (response) {
+    //         $scope.worker = response;
+    //     });
+    // }
+
+    // $scope.getWorker = function (worker_id) {
+    //     console.log(worker_id);
+    // }
+
+
+
+    // $scope.updateWorker = function (id) {
+    //     $http.put('/api/workers/' + id, $scope.worker).success(function (response) {
+    //         for (i in $scope.workers) {
+    //             if ($scope.workers[i]._id === id) {
+    //                 $scope.workers[i] = $scope.worker;
+    //             }
+    //         }
+    //     });
+    // };
+
+
+    // $scope.updateWorker = function (id) {
+    //     console.log(id);
+    //     }
+
+    $ctrl.ok = function () {
+        $uibModalInstance.close();
+    }; // submit button
+
+    $ctrl.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    }; // cancel button
+
+});

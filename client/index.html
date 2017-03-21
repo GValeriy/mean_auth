@@ -13,11 +13,9 @@
     <link rel="stylesheet" href="lib/bootstrap-material-design.css">
     <link rel="stylesheet" href="css/style.css">
 
-
 </head>
 
-<body ng-controller="WorkersController">
-
+<body ng-controller="WorkersController as $ctrl">
 <div class="navbar navbar-inverse" id="nav">
     <div class="container">
         <div class="navbar-header">
@@ -42,12 +40,18 @@
                 <button type="button" class="btn btn-raised btn-primary" ng-click="newUser()" data-toggle="modal" data-target="#addModal">
                     Добавить сотрудника
                 </button>
+
+                <!--Angular add modal-->
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.openAdd()">Добавить сотрудника</button>
+                </div>
+                <!--/Angular add modal-->
+
             </div>
         </div>
     </div>
 </div>
 <!--Список сотрудников-->
-<div class="container">
+<div  class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="panel" >
@@ -66,7 +70,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="worker in workers | filter: searchKeyword   ">
+                    <tr ng-repeat="worker in workers | filter: searchKeyword" >
 
                         <td>{{worker.name}}</td>
                         <td>{{worker.patronymic}}</td>
@@ -78,7 +82,12 @@
                         <td>
                             <a class="btn btn-raised btn-primary" ng-click="getWorker(worker._id)" data-toggle="modal"
                                data-target="#editModal"> Edit </a>
+
+                                <button type="button" class="btn btn-default" ng-click="$ctrl.openEdit(); getWorker(worker._id)">редакт.</button>
+
+                            <!--/Angular modal-->
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
+
                         </td>
                     </tr>
 
@@ -87,6 +96,7 @@
                 </table>
 
                 <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" ng-change="pageChanged()"></ul>
+
                 <!-- Edit Modal -->
                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" >
                     <div class="modal-dialog" >
@@ -243,161 +253,278 @@
     </div>
 </div>
 
+<!--Edit modal-->
+
+<script type="text/ng-template" id="editContent.html">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="editmodal-title">Редактировать сотрудника</h3>
+    </div>
+    <div class="modal-body" id="editmodal-body">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" id="editangform"  novalidate>
+                            <fieldset>
+                                <form name="userForm">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">
+                                        <label for="addinput1" class="col-md-2 control-label">Имя</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="angEditInput1"
+                                                   ng-model="worker.name" placeholder="Имя" required>
+
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.patronymic, 'has-success': worker.patronymic  }">
+                                    <label for="angEditInput2" class="col-md-2 control-label">Отчество</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angEditInput2"
+                                               ng-model="worker.patronymic" placeholder="Отчество" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.surname, 'has-success': worker.surname  }">
+                                    <label for="angEditInput3" class="col-md-2 control-label">Фамилия</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angEditInput3"
+                                               ng-model="worker.surname" placeholder="Фамилия" required>
+
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
+                                    <label for="angEditInput4" class="col-md-2 control-label">Должность</label>
+
+                                    <div class="col-md-10">
+                                        <select id="angEditInput4" ng-init="worker.post='Программист'"
+                                                ng-model="worker.post" class="form-control">
+                                            <option>Программист</option>
+                                            <option>Дизайнер</option>
+                                            <option>Менеджер</option>
+                                            <option>Персонал</option>
+                                            <option>Обучающийся</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
+                                    <label for="angEditInput5" class="col-md-2 control-label">Пол</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angEditInput5"
+                                               ng-model="worker.sex" placeholder="Пол" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
+                                    <label for="angEditInput6" class="col-md-2 control-label">Телефон</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angEditInput6"
+                                               ng-model="worker.phone" placeholder="Телефон" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start  }">
+                                    <label for="angEditInput7" class="col-md-2 control-label">Начало дня</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angEditInput7"
+                                               ng-model="worker.work_start" placeholder="Начало рабочего дня"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop  }">
+                                    <label for="angEditInput8" class="col-md-2 control-label">Конец дня</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angEditInput8"
+                                               ng-model="worker.work_stop" placeholder="Конец рабочего дня"
+                                               required>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok();updateWorker(worker._id)">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+
+    </div>
+</script>
+
+
+<!--Angular add modal window-->
+<script type="text/ng-template" id="myModalContent.html">
+
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Добавить сотрудника</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal" id="angform"  novalidate>
+                            <fieldset>
+                                <form name="userForm">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">
+                                        <label for="addinput1" class="col-md-2 control-label">Имя</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="angAddInput1"
+                                                   ng-model="worker.name" placeholder="Имя" required>
+
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.patronymic, 'has-success': worker.patronymic  }">
+                                    <label for="angAddInput2" class="col-md-2 control-label">Отчество</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angAddInput2"
+                                               ng-model="worker.patronymic" placeholder="Отчество" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.surname, 'has-success': worker.surname  }">
+                                    <label for="angAddInput3" class="col-md-2 control-label">Фамилия</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angAddInput3"
+                                               ng-model="worker.surname" placeholder="Фамилия" required>
+
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
+                                    <label for="angAddInput4" class="col-md-2 control-label">Должность</label>
+
+                                    <div class="col-md-10">
+                                        <select id="angAddInput4" ng-init="worker.post='Программист'"
+                                                ng-model="worker.post" class="form-control">
+                                            <option>Программист</option>
+                                            <option>Дизайнер</option>
+                                            <option>Менеджер</option>
+                                            <option>Персонал</option>
+                                            <option>Обучающийся</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
+                                    <label for="angAddInput5" class="col-md-2 control-label">Пол</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angAddInput5"
+                                               ng-model="worker.sex" placeholder="Пол" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
+                                    <label for="angAddInput6" class="col-md-2 control-label">Телефон</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angAddInput6"
+                                               ng-model="worker.phone" placeholder="Телефон" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start  }">
+                                    <label for="angAddInput7" class="col-md-2 control-label">Начало дня</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angAddInput7"
+                                               ng-model="worker.work_start" placeholder="Начало рабочего дня"
+                                               required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"
+                                     ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop  }">
+                                    <label for="angAddInput8" class="col-md-2 control-label">Конец дня</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" id="angAddInput8"
+                                               ng-model="worker.work_stop" placeholder="Конец рабочего дня"
+                                               required>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok();addWorker()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+
+    </div>
+</script>
 
 <!--Add Modal -->
-<!--<div class="modal fade" id="addModal" tabindex="-1" role="dialog" >-->
-    <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-                        <!--aria-hidden="true">&times;</span></button>-->
-
-            <!--</div>-->
-
-            <!--<div class="modal-body">-->
-
-                <!--<a class="btn btn-danger " data-dismiss="modal" href="/#/">Назад</a>-->
-                <!--<div class="panel panel-success">-->
-                    <!--<div class="panel-body">-->
-                        <!--<div class="row">-->
-                            <!--<div class="col-md-12">-->
-                                <!--<form class="form-horizontal" id="form"  novalidate>-->
-
-                                    <!--<center>-->
-                                        <!--<legend><b>Добавить сотрудника</b></legend>-->
-                                    <!--</center>-->
-                                    <!--<fieldset>-->
-
-
-                                        <!--<form name="userForm">-->
-                                            <!--<div class="form-group"-->
-                                                 <!--ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">-->
-                                                <!--<label for="addinput1" class="col-md-2 control-label">Имя</label>-->
-
-                                                <!--<div class="col-md-10">-->
-                                                    <!--<input type="text" class="form-control" id="addinput1"-->
-                                                           <!--ng-model="worker.name" placeholder="Имя" required>-->
-
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</form>-->
-
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.patronymic, 'has-success': worker.patronymic  }">-->
-                                            <!--<label for="addinput2" class="col-md-2 control-label">Отчество</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" class="form-control" id="addinput2"-->
-                                                       <!--ng-model="worker.patronymic" placeholder="Отчество" required>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.surname, 'has-success': worker.surname  }">-->
-                                            <!--<label for="addinput3" class="col-md-2 control-label">Фамилия</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" class="form-control" id="addinput3"-->
-                                                       <!--ng-model="worker.surname" placeholder="Фамилия" required>-->
-
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">-->
-                                            <!--<label for="addinput4" class="col-md-2 control-label">Должность</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<select id="addinput4" ng-init="worker.post='Программист'"-->
-                                                        <!--ng-model="worker.post" class="form-control">-->
-                                                    <!--<option>Программист</option>-->
-                                                    <!--<option>Дизайнер</option>-->
-                                                    <!--<option>Менеджер</option>-->
-                                                    <!--<option>Персонал</option>-->
-                                                    <!--<option>Обучающийся</option>-->
-                                                <!--</select>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">-->
-                                            <!--<label for="addinput5" class="col-md-2 control-label">Пол</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" class="form-control" id="addinput5"-->
-                                                       <!--ng-model="worker.sex" placeholder="Пол" required>-->
-
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">-->
-                                            <!--<label for="addinput6" class="col-md-2 control-label">Телефон</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" class="form-control" id="addinput6"-->
-                                                       <!--ng-model="worker.phone" placeholder="Телефон" required>-->
-
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start  }">-->
-                                            <!--<label for="addinput7" class="col-md-2 control-label">Начало дня</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" class="form-control" id="addinput7"-->
-                                                       <!--ng-model="worker.work_start" placeholder="Начало рабочего дня"-->
-                                                       <!--required>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group"-->
-                                             <!--ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop  }">-->
-                                            <!--<label for="addinput8" class="col-md-2 control-label">Конец дня</label>-->
-
-                                            <!--<div class="col-md-10">-->
-                                                <!--<input type="text" class="form-control" id="addinput8"-->
-                                                       <!--ng-model="worker.work_stop" placeholder="Конец рабочего дня"-->
-                                                       <!--required>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group">-->
-                                            <!--<div class="col-md-10 col-md-offset-2">-->
-                                                <!--<button type="submit" href="/#/"  class="btn btn-primary" ng-click="addWorker()" data-dismiss="modal"  >Submit-->
-                                                <!--</button>-->
-                                                <!--<button type="reset" class="btn btn-default">Reset</button>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</fieldset>-->
-                                <!--</form>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
-<!--Angular modal-->
-
-
-    <div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
-
-        <script type="text/ng-template" id="myModalContent.html">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
 
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Добавить сотрудника</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+
             </div>
-            <div class="modal-body" id="modal-body">
+
+            <div class="modal-body">
+
+                <a class="btn btn-danger " data-dismiss="modal" href="/#/">Назад</a>
                 <div class="panel panel-success">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <form class="form-horizontal" id="form"  novalidate>
+
+                                    <center>
+                                        <legend><b>Добавить сотрудника</b></legend>
+                                    </center>
                                     <fieldset>
+
+
                                         <form name="userForm">
                                             <div class="form-group"
                                                  ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">
@@ -490,6 +617,13 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group">
+                                            <div class="col-md-10 col-md-offset-2">
+                                                <button type="submit" href="/#/"  class="btn btn-primary" ng-click="addWorker()" data-dismiss="modal"  >Submit
+                                                </button>
+                                                <button type="reset" class="btn btn-default">Reset</button>
+                                            </div>
+                                        </div>
                                     </fieldset>
                                 </form>
                             </div>
@@ -498,25 +632,9 @@
                 </div>
 
             </div>
-
-            <div class="modal-footer">
-
-                <button class="btn btn-primary" type="button" ng-click="$ctrl.ok();addWorker()">OK</button>
-                <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-
-            </div>
-        </script>
-
-
-        <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Добавить сотрудника</button>
-
-
-        <div class="modal-parent">
         </div>
-
-
-    <!--/Angular modal-->
-
+    </div>
+</div>
 
     <script src="lib/jquery.min.js"></script>
     <script src="/lib/angular.js"></script>
@@ -527,7 +645,6 @@
     <script src="js/controllers/workers.js"></script>
     <script src="js/controllers/modal.js"></script>
     <script src="js/services/crud.js"></script>
-
 
 </body>
 </html>
