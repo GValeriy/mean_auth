@@ -83,7 +83,7 @@
                             <a class="btn btn-raised btn-primary" ng-click="getWorker(worker._id)" data-toggle="modal"
                                data-target="#editModal"> Edit </a>
 
-                                <button type="button" class="btn btn-default" ng-click="$ctrl.openEdit(); getWorker(worker._id)">редакт.</button>
+                                <button type="button" class="btn btn-default" ng-click="$ctrl.openEdit(worker._id)">редакт.</button>
 
                             <!--/Angular modal-->
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
@@ -370,8 +370,8 @@
 
     <div class="modal-footer">
 
-        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok();updateWorker(worker._id)">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+        <button class="btn btn-primary" type="button" ng-click="$ctrl1.ok();updateWorker(worker._id)">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl1.cancel()">Cancel</button>
 
     </div>
 </script>

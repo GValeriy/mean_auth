@@ -11,7 +11,7 @@ myApp.controller('ModalInstanceCtrl', function ($scope,$uibModalInstance, $http,
     };
 
     $ctrl.ok = function () {
-        $uibModalInstance.close();
+        $uibModalInstance.close('OK');
     }; // submit button
 
     $ctrl.cancel = function () {
@@ -20,17 +20,16 @@ myApp.controller('ModalInstanceCtrl', function ($scope,$uibModalInstance, $http,
 
 });
 
-myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance,  $http, myService) {
+myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance, $http, myService) {
     console.log("ModalInstanceCtrl loaded... ")
 
     var $ctrl = this;
+    var worker_id = $scope.$resolve.provider.worker_id;
+    console.log(worker_id);
 
-    // $scope.getWorker = function (worker_id) {
-    //     console.log($scope.worker);
-    //     myService.getWorker(id).success(function (response) {
-    //         $scope.worker = response;
-    //     });
-    // }
+    myService.getWorker(worker_id).success(function (response) {
+        $scope.worker = response;
+    });
 
     // $scope.getWorker = function (worker_id) {
     //     console.log(worker_id);
@@ -38,15 +37,15 @@ myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance,  $http, my
 
 
 
-    // $scope.updateWorker = function (id) {
-    //     $http.put('/api/workers/' + id, $scope.worker).success(function (response) {
-    //         for (i in $scope.workers) {
-    //             if ($scope.workers[i]._id === id) {
-    //                 $scope.workers[i] = $scope.worker;
-    //             }
-    //         }
-    //     });
-    // };
+    $scope.updateWorker = function () {
+        $http.put('/api/workers/' + worker_id, $scope.worker).success(function (response) {
+            for (i in $scope.workers) {
+                if ($scope.workers[i]._id === id) {
+                    $scope.workers[i] = $scope.worker;
+                }
+            }
+        });
+    };
 
 
     // $scope.updateWorker = function (id) {
@@ -54,7 +53,8 @@ myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance,  $http, my
     //     }
 
     $ctrl.ok = function () {
-        $uibModalInstance.close();
+        console.log($scope);
+        $uibModalInstance.close('OK');
     }; // submit button
 
     $ctrl.cancel = function () {
