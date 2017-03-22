@@ -1,55 +1,68 @@
-var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize','ui.bootstrap']);
-// 'ngAnimate', 'ngSanitize',
-myApp.controller('WorkersController', ['$scope', '$http', 'myService', function ($scope, $http, myService) {
-    console.log("WorkersController loaded... ")
+var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 
-    myService.getWorkers($scope.currentPage).success(function (response) {
-           $scope.itemsPerPage = response.limit;
-           $scope.totalItems = response.total;
-           $scope.currentPage = response.page;
-                $scope.workers = response.docs;
-            });
+myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, myService, $document) {
+    console.log("WorkersController loaded... ");
 
-    $scope.pageChanged = function () {
-        myService.getWorkers($scope.currentPage).success(function (response) {
-            $scope.totalItems = response.total;
-            $scope.currentPage = response.page;
-            $scope.workers = response.docs;
+    var $openCtrl = this;
+    $openCtrl.animationsEnabled = true;
 
-        });
-    };
-
-    $scope.addWorker = function () {
-        myService.addWorker($scope.worker).success(function (response) {
-            console.log($scope.worker, "- worker", $scope.workers, "- workers");
-        });
-        myService.getWorkers($scope.currentPage).success(function (response) {
-            $scope.itemsPerPage = response.limit;
-            $scope.totalItems = response.total;
-            $scope.currentPage = response.page;
-            $scope.workers = response.docs;
-
-        });
-    };
-
-    $scope.getWorker = function (id) {
-        myService.getWorker(id).success(function (response) {
-            $scope.worker = response;
-        });
-    }
-
-    $scope.newUser = function (id) {
-        $scope.worker = "";
-
-    }
-
-    $scope.updateWorker = function (id) {
-        $http.put('/api/workers/' + id, $scope.worker).success(function (response) {
-            for (i in $scope.workers) {
-                if ($scope.workers[i]._id === id) {
-                    $scope.workers[i] = $scope.worker;
+    $openCtrl.openAdd = function () {
+        var modalInstance = $uibModal.open({
+            animation: $openCtrl.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalAddCtrl',
+            controllerAs: '$addCtrl',
+            resolve: {
+                m: function () {
+                    return console.log("openAddModal")
                 }
             }
+        });
+        modalInstance.result.then(function (data) {
+            myService.getWorkers($scope.currentPage).success(function (response) {
+                $scope.itemsPerPage = response.limit;
+                $scope.totalItems = response.total;
+                $scope.currentPage = response.page;
+                $scope.workers = response.docs;
+            });
+        });
+    };
+    $openCtrl.openEdit = function (worker_id) {
+        var modalInstance = $uibModal.open({
+            animation: $openCtrl.animationsEnabled,
+            templateUrl: 'editContent.html',
+            controller: 'ModalEditCtrl',
+            controllerAs: '$editCtrl',
+            resolve: {
+                m: function () {
+                    return console.log("openEditModal")
+                },
+                provider: {worker_id: worker_id}
+            }
+        });
+        modalInstance.result.then(function (data) {
+            myService.getWorkers($scope.currentPage).success(function (response) {
+                $scope.itemsPerPage = response.limit;
+                $scope.totalItems = response.total;
+                $scope.currentPage = response.page;
+                $scope.workers = response.docs;
+            });
+        });
+    };
+
+    myService.getWorkers($scope.currentPage, $scope.searchWord).success(function (response) {
+        $scope.itemsPerPage = response.limit;
+        $scope.totalItems = response.total;
+        $scope.currentPage = response.page;
+        $scope.workers = response.docs;
+    });
+
+    $scope.pageChanged = function () {
+        myService.getWorkers($scope.currentPage, $scope.searchWord).success(function (response) {
+            $scope.totalItems = response.total;
+            $scope.currentPage = response.page;
+            $scope.workers = response.docs;
+
         });
     };
 
@@ -62,4 +75,5 @@ myApp.controller('WorkersController', ['$scope', '$http', 'myService', function 
         }
     };
 
-}]);
+
+});
