@@ -1,45 +1,45 @@
 var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
-// 'ngAnimate', 'ngSanitize',
 
 myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, myService, $document) {
-    console.log("WorkersController loaded... ")
+    console.log("WorkersController loaded... ");
 
-    var $ctrl = this;
-    $ctrl.animationsEnabled = true;
+    var $openCtrl = this;
+    $openCtrl.animationsEnabled = true;
 
-    $ctrl.openAdd = function () {
-
+    $openCtrl.openAdd = function () {
         var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
+            animation: $openCtrl.animationsEnabled,
             templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            controllerAs: '$ctrl',
+            controller: 'ModalAddCtrl',
+            controllerAs: '$addCtrl',
             resolve: {
                 m: function () {
                     return console.log("openAdd")
                 }
             }
         });
-        modalInstance.result.then(function (selectedItem) {
-            $ctrl.selected = selectedItem;
-        }, function () {
-            $log.info('modal-component dismissed at: ' + new Date());
+        modalInstance.result.then(function (data) {
+            myService.getWorkers($scope.currentPage).success(function (response) {
+                $scope.itemsPerPage = response.limit;
+                $scope.totalItems = response.total;
+                $scope.currentPage = response.page;
+                $scope.workers = response.docs;
+            });
         });
     };
-
-
-
-    $ctrl.openEdit = function (worker_id) {
+    $openCtrl.openEdit = function (worker_id) {
         var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
+            animation: $openCtrl.animationsEnabled,
             templateUrl: 'editContent.html',
             controller: 'ModalEditCtrl',
-            controllerAs: '$ctrl1',
+            controllerAs: '$editCtrl',
             resolve: {
+                m: function () {
+                    return console.log("openEdit")
+                },
                 provider: {worker_id: worker_id}
             }
         });
-
         modalInstance.result.then(function (data) {
             myService.getWorkers($scope.currentPage).success(function (response) {
                 $scope.itemsPerPage = response.limit;
@@ -50,7 +50,7 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
         });
     };
 
-    myService.getWorkers($scope.currentPage).success(function (response) {
+    myService.getWorkers($scope.currentPage, $scope.searchWord).success(function (response) {
         $scope.itemsPerPage = response.limit;
         $scope.totalItems = response.total;
         $scope.currentPage = response.page;
@@ -58,49 +58,11 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
     });
 
     $scope.pageChanged = function () {
-        myService.getWorkers($scope.currentPage).success(function (response) {
+        myService.getWorkers($scope.currentPage, $scope.searchWord).success(function (response) {
             $scope.totalItems = response.total;
             $scope.currentPage = response.page;
             $scope.workers = response.docs;
 
-        });
-    };
-
-    $scope.addWorker = function () {
-        myService.addWorker($scope.worker).success(function (response) {
-            console.log($scope.worker, "- worker", $scope.workers, "- workers");
-        });
-
-        myService.getWorkers($scope.currentPage).success(function (response) {
-            $scope.itemsPerPage = response.limit;
-            $scope.totalItems = response.total;
-            $scope.currentPage = response.page;
-            $scope.workers = response.docs;
-
-        });
-
-    };
-
-    $scope.getWorker = function (id) {
-        myService.getWorker(id).success(function (response) {
-            $scope.worker = response;
-            console.log($scope.worker);
-        });
-    }
-
-    $scope.newUser = function (id) {
-        $scope.worker = "";
-
-    }
-
-    $scope.updateWorker = function (id) {
-        console.log($scope.worker);
-        $http.put('/api/workers/' + id, $scope.worker).success(function (response) {
-            for (i in $scope.workers) {
-                if ($scope.workers[i]._id === id) {
-                    $scope.workers[i] = $scope.worker;
-                }
-            }
         });
     };
 
@@ -113,12 +75,5 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
         }
     };
 
-    $ctrl.ok = function () {
-        $ctrl.close();
-    }; // submit button
-
-    $ctrl.cancel = function () {
-        $ctrl.dismiss();
-    }; // cancel button
 
 });

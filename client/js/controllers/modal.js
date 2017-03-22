@@ -1,7 +1,4 @@
-
-myApp.controller('ModalInstanceCtrl', function ($scope,$uibModalInstance, $http, myService) {
-    console.log("ModalInstanceCtrl loaded... ")
-
+myApp.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, myService) {
     var $ctrl = this;
 
     $scope.addWorker = function () {
@@ -21,8 +18,6 @@ myApp.controller('ModalInstanceCtrl', function ($scope,$uibModalInstance, $http,
 });
 
 myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance, $http, myService) {
-    console.log("ModalInstanceCtrl loaded... ")
-
     var $ctrl = this;
     var worker_id = $scope.$resolve.provider.worker_id;
     console.log(worker_id);
@@ -30,12 +25,6 @@ myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance, $http, myS
     myService.getWorker(worker_id).success(function (response) {
         $scope.worker = response;
     });
-
-    // $scope.getWorker = function (worker_id) {
-    //     console.log(worker_id);
-    // }
-
-
 
     $scope.updateWorker = function () {
         $http.put('/api/workers/' + worker_id, $scope.worker).success(function (response) {
@@ -46,11 +35,6 @@ myApp.controller('ModalEditCtrl', function ($scope,$uibModalInstance, $http, myS
             }
         });
     };
-
-
-    // $scope.updateWorker = function (id) {
-    //     console.log(id);
-    //     }
 
     $ctrl.ok = function () {
         console.log($scope);

@@ -11,10 +11,12 @@ myApp.service('myService', ['$http', function ($http) {
     }
 
     this.getWorkers = function (page) {
+        console.log(page);
      var getWorkers = $http.get("/api/workers", {
          params: {
              page: page
          }
+
      });
      return getWorkers;
     };
