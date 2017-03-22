@@ -14,7 +14,7 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             controllerAs: '$addCtrl',
             resolve: {
                 m: function () {
-                    return console.log("openAdd")
+                    return console.log("openAddModal")
                 }
             }
         });
@@ -35,7 +35,7 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             controllerAs: '$editCtrl',
             resolve: {
                 m: function () {
-                    return console.log("openEdit")
+                    return console.log("openEditModal")
                 },
                 provider: {worker_id: worker_id}
             }
