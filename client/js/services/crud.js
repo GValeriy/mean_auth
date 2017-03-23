@@ -1,28 +1,23 @@
 myApp.service('myService', ['$http', function ($http) {
 
     this.getWorker = function (id) {
-        var getWorker = $http.get("/api/workers/" + id);
-        return getWorker;
+        return $http.get("/api/workers/" + id);
     };
 
     this.addWorker = function (worker) {
-        var addWorker = $http.post('/api/workers/', worker);
-        return addWorker;
+       return $http.post('/api/workers/', worker);
     }
 
-    this.getWorkers = function (page) {
-     var getWorkers = $http.get("/api/workers", {
+    this.getWorkers = function (page, limit) {
+        return $http.get("/api/workers", {
          params: {
-             page: page
+             page: page,
+             limit:limit
          }
-
      });
-     return getWorkers;
     };
 
     this.removeWorker = function (id) {
-        var removeWorker=$http.delete('/api/workers/' + id);
-      return  removeWorker;
+        return $http.delete('/api/workers/' + id);
     };
-
 }]);

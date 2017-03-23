@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="lib/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap-material-design.css">
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body ng-controller="WorkersController as $workContr">
@@ -66,7 +65,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="worker in workers | filter: searchKeyword" >
+                    <tr ng-repeat="worker in workers | filter: searchWord" >
 
                         <td>{{worker.name}}</td>
                         <td>{{worker.patronymic}}</td>
@@ -77,7 +76,7 @@
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
                         <td>
 
-                            <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openEdit(worker._id)">Редактировать</button>
+                            <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openEdit(worker)">Редактировать</button>
 
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
 
@@ -86,7 +85,13 @@
                     </tbody>
                 </table>
                 <!--Pagination-->
-                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" ng-change="pageChanged()"></ul>
+                <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                    ng-change="pageChanged()"></ul>
+
+                Show <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                <option>3</option><option>5</option><option>10</option><option>20</option>
+                <option>30</option><option>40</option><option>50</option></select>
+                records at a time.
                 <!--/pagination-->
             </div>
         </div>
@@ -302,11 +307,17 @@
                                      ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start  }">
                                     <label for="angAddInput7" class="col-md-2 control-label">Начало дня</label>
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angAddInput7"
-                                               ng-model="worker.work_start" placeholder="Начало рабочего дня"
-                                               required>
+
+                                    <!--<div class="col-md-10">-->
+                                        <!--<input type="text" class="form-control" id="angAddInput7"-->
+                                               <!--ng-model="worker.work_start" placeholder="Начало рабочего дня"-->
+                                               <!--required>-->
+
+                                        <div uib-timepicker ng-model="mytime"ng-model="worker.work_start" ng-change="changed()"
+                                             hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
                                     </div>
+
+
                                 </div>
 
                                 <div class="form-group"

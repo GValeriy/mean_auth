@@ -3,13 +3,23 @@ var router = express.Router();
 var Worker = require('../models/worker');
 
 router.get('/',function (req,res) {
-    Worker.paginate({},{page: req.query['page'], limit:5 }, function (err, data) {
+
+    Worker.paginate({},{page: req.query['page'], limit: req.query['limit'] }, function (err, data) {
         res.send(data);
     });
 });
 
 router.get('/:_id',function (req,res) {
     Worker.getWorkerById(req.params._id, function (err, worker) {
+        if(err){
+            throw err;
+        }
+        res.json(worker);
+    })
+});
+
+router.get('/:search',function (req,res) {
+    Worker.searchWorker ( req.params.name, function (err, worker) {
         if(err){
             throw err;
         }

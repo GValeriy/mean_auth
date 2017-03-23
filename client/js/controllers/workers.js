@@ -3,12 +3,11 @@ var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap'])
 myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, myService, $document) {
     console.log("WorkersController loaded... ");
 
-    var $openCtrl = this;
-    $openCtrl.animationsEnabled = true;
+    this.animationsEnabled = true;
 
-    $openCtrl.openAdd = function () {
+    this.openAdd = function () {
         var modalInstance = $uibModal.open({
-            animation: $openCtrl.animationsEnabled,
+            animation: this.animationsEnabled,
             templateUrl: 'myModalContent.html',
             controller: 'ModalAddCtrl',
             controllerAs: '$addCtrl',
@@ -27,9 +26,9 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             });
         });
     };
-    $openCtrl.openEdit = function (worker_id) {
+    this.openEdit = function (worker) {
         var modalInstance = $uibModal.open({
-            animation: $openCtrl.animationsEnabled,
+            animation: this.animationsEnabled,
             templateUrl: 'editContent.html',
             controller: 'ModalEditCtrl',
             controllerAs: '$editCtrl',
@@ -37,7 +36,7 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
                 m: function () {
                     return console.log("openEditModal")
                 },
-                provider: {worker_id: worker_id}
+                worker: worker
             }
         });
         modalInstance.result.then(function (data) {
@@ -50,18 +49,39 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
         });
     };
 
-    myService.getWorkers($scope.currentPage, $scope.searchWord).success(function (response) {
+    myService.getWorkers($scope.currentPage, 5).success(function (response) {
+        console.log ( $scope.itemsPerPage);
         $scope.itemsPerPage = response.limit;
+        console.log(response.limit);
         $scope.totalItems = response.total;
         $scope.currentPage = response.page;
         $scope.workers = response.docs;
     });
 
+
+    $scope.setItemsPerPage = function(num) {
+
+        $scope.itemsPerPage = num;
+
+        console.log($scope.itemsPerPage);
+
+        myService.getWorkers($scope.currentPage, $scope.itemsPerPage).success(function (response) {
+            console.log ( "myserviceGetWOrkers", $scope.itemsPerPage);
+            $scope.totalItems = response.total;
+            $scope.workers = response.docs;
+            $scope.itemsPerPage = response.limit;
+
+        });
+        $scope.currentPage = 1; //reset to first page
+    }
+
     $scope.pageChanged = function () {
-        myService.getWorkers($scope.currentPage, $scope.searchWord).success(function (response) {
+        myService.getWorkers($scope.currentPage, $scope.itemsPerPage).success(function (response) {
+            console.log ( "myserviceGetWOrkers", $scope.itemsPerPage);
             $scope.totalItems = response.total;
             $scope.currentPage = response.page;
             $scope.workers = response.docs;
+            $scope.itemsPerPage = response.limit;
 
         });
     };
@@ -74,6 +94,5 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             }
         }
     };
-
 
 });

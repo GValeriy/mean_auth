@@ -52,6 +52,11 @@ module.exports.getWorkerById = function(id, callback) {
     Worker.findById(id, callback);
 };
 
+// Searching
+module.exports.searchWorker = function(callback) {
+Worker.find({ name: "Валерий" });
+};
+
 //ADD worker
 module.exports.addWorker = function(worker, callback) {
     Worker.create(worker, callback);
