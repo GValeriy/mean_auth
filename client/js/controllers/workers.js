@@ -18,7 +18,7 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             }
         });
         modalInstance.result.then(function (data) {
-            myService.getWorkers($scope.currentPage).success(function (response) {
+            myService.getWorkers($scope.currentPage,5).success(function (response) {
                 $scope.itemsPerPage = response.limit;
                 $scope.totalItems = response.total;
                 $scope.currentPage = response.page;
@@ -48,15 +48,20 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             });
         });
     };
-
-    myService.getWorkers($scope.currentPage, 5).success(function (response) {
-        console.log ( $scope.itemsPerPage);
+    myService.getWorkers($scope.currentPage,5).success(function (response) {
         $scope.itemsPerPage = response.limit;
-        console.log(response.limit);
         $scope.totalItems = response.total;
         $scope.currentPage = response.page;
         $scope.workers = response.docs;
     });
+    // myService.getWorkers($scope.currentPage, 5).success(function (response) {
+    //     console.log ( $scope.itemsPerPage);
+    //     $scope.itemsPerPage = response.limit;
+    //     console.log(response.limit);
+    //     $scope.totalItems = response.total;
+    //     $scope.currentPage = response.page;
+    //     $scope.workers = response.docs;
+    // });
 
 
     $scope.setItemsPerPage = function(num) {
