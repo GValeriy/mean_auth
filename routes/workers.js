@@ -3,8 +3,11 @@ var router = express.Router();
 var Worker = require('../models/worker');
 
 router.get('/',function (req,res) {
+var page = +req.query['page'];
+    var limit =  +req.query['limit'];
 
-    Worker.paginate({},{page: req.query['page'], limit: req.query['limit'] }, function (err, data) {
+    Worker.paginate({  },{page: page, limit: limit }, function (err, data) {
+        console.log(data);
         res.send(data);
     });
 });

@@ -37,7 +37,7 @@
             <div class="nav navbar-nav navbar-right">
 
                 <!--Angular add modal-->
-                    <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openAdd()">Добавить сотрудника</button>
+                    <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openAdd(viewby)">Добавить сотрудника</button>
                 <!--/Angular add modal-->
 
             </div>
@@ -308,13 +308,14 @@
                                     <label for="angAddInput7" class="col-md-2 control-label">Начало дня</label>
 
 
-                                    <!--<div class="col-md-10">-->
-                                        <!--<input type="text" class="form-control" id="angAddInput7"-->
-                                               <!--ng-model="worker.work_start" placeholder="Начало рабочего дня"-->
-                                               <!--required>-->
+                                    <div class="col-md-10">
 
-                                        <div uib-timepicker ng-model="mytime"ng-model="worker.work_start" ng-change="changed()"
-                                             hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+                                        <input type="text" class="form-control" id="angAddInput7"
+                                               ng-model="worker.work_start" placeholder="Начало рабочего дня"
+                                               required>
+
+                                        <!--<div uib-timepicker ng-model="mytime" ng-change="changed()"-->
+                                             <!--hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>-->
                                     </div>
 
 

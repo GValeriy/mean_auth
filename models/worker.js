@@ -19,16 +19,16 @@ var workerSchema = mongoose.Schema({
         // required:true
     },
     sex:{
-        type: String
+        type: String,
     },
     phone:{
-        type: String
+        type: String,
     },
     work_start:{
-        type: String
+        type:  String,
     },
     work_stop:{
-        type: String
+        type: String,
     },
     create_date:{
         type: Date,
@@ -50,11 +50,6 @@ module.exports.getWorkers = function(callback, limit) {
 //Get worker
 module.exports.getWorkerById = function(id, callback) {
     Worker.findById(id, callback);
-};
-
-// Searching
-module.exports.searchWorker = function(callback) {
-Worker.find({ name: "Валерий" });
 };
 
 //ADD worker
