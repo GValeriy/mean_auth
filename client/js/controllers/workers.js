@@ -1,10 +1,11 @@
-var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'mgcrea.ngStrap','ui.mask']);
 
 myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, myService, $document) {
     console.log("WorkersController loaded... ");
 
-    this.animationsEnabled = true;
+    // MODAL WINDOWS
 
+    this.animationsEnabled = true;
     this.openAdd = function () {
         var modalInstance = $uibModal.open({
             animation: this.animationsEnabled,
@@ -17,8 +18,9 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
                 }
             }
         });
+
         modalInstance.result.then(function (data) {
-            myService.getWorkers($scope.currentPage,5).success(function (response) {
+            myService.getWorkers($scope.currentPage,$scope.itemsPerPage).success(function (response) {
                 $scope.itemsPerPage = response.limit;
                 $scope.totalItems = response.total;
                 $scope.currentPage = response.page;
@@ -26,6 +28,7 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
             });
         });
     };
+
     this.openEdit = function (worker) {
         var modalInstance = $uibModal.open({
             animation: this.animationsEnabled,
@@ -39,50 +42,31 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
                 worker: worker
             }
         });
-        modalInstance.result.then(function (data) {
-            myService.getWorkers($scope.currentPage).success(function (response) {
-                $scope.itemsPerPage = response.limit;
-                $scope.totalItems = response.total;
-                $scope.currentPage = response.page;
-                $scope.workers = response.docs;
-            });
-        });
     };
-    myService.getWorkers($scope.currentPage,5).success(function (response) {
+
+// CRUD
+
+    myService.getWorkers($scope.currentPage,3).success(function (response) {
         $scope.itemsPerPage = response.limit;
         $scope.totalItems = response.total;
         $scope.currentPage = response.page;
         $scope.workers = response.docs;
     });
-    // myService.getWorkers($scope.currentPage, 5).success(function (response) {
-    //     console.log ( $scope.itemsPerPage);
-    //     $scope.itemsPerPage = response.limit;
-    //     console.log(response.limit);
-    //     $scope.totalItems = response.total;
-    //     $scope.currentPage = response.page;
-    //     $scope.workers = response.docs;
-    // });
 
-
-    $scope.setItemsPerPage = function(num) {
-
-        $scope.itemsPerPage = num;
-
-        console.log($scope.itemsPerPage);
-
+    $scope.removeWorker = function (id) {
+        myService.removeWorker(id);
         myService.getWorkers($scope.currentPage, $scope.itemsPerPage).success(function (response) {
-            console.log ( "myserviceGetWOrkers", $scope.itemsPerPage);
             $scope.totalItems = response.total;
+            $scope.currentPage = response.page;
             $scope.workers = response.docs;
             $scope.itemsPerPage = response.limit;
-
         });
-        $scope.currentPage = 1; //reset to first page
-    }
+    };
+
+    // PAGINATION
 
     $scope.pageChanged = function () {
         myService.getWorkers($scope.currentPage, $scope.itemsPerPage).success(function (response) {
-            console.log ( "myserviceGetWOrkers", $scope.itemsPerPage);
             $scope.totalItems = response.total;
             $scope.currentPage = response.page;
             $scope.workers = response.docs;
@@ -90,14 +74,14 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
 
         });
     };
+    $scope.setItemsPerPage = function(num) {
+        $scope.itemsPerPage = num;
+        myService.getWorkers($scope.currentPage, $scope.itemsPerPage).success(function (response) {
+            $scope.totalItems = response.total;
+            $scope.workers = response.docs;
+            $scope.itemsPerPage = response.limit;
+        });
 
-    $scope.removeWorker = function (id) {
-        myService.removeWorker(id);
-        for (i in $scope.workers) {
-            if ($scope.workers[i]._id === id) {
-                $scope.workers.splice(i, 1);
-            }
-        }
-    };
-
+        $scope.currentPage = 1; //reset to first page
+    }
 });

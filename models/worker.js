@@ -36,6 +36,14 @@ var workerSchema = mongoose.Schema({
     }
 });
 
+// var Schema = mongoose.Schema;
+//
+// module.exports = mongoose.model('User', new Schema({
+//     name: String,
+//     password: String,
+//     admin: Boolean
+// }));
+
 workerSchema.plugin(mongoosePaginate);
 
 var Worker = module.exports = mongoose.model('Worker', workerSchema);
@@ -50,11 +58,6 @@ module.exports.getWorkers = function(callback, limit) {
 //Get worker
 module.exports.getWorkerById = function(id, callback) {
     Worker.findById(id, callback);
-};
-
-// Searching
-module.exports.searchWorker = function(callback) {
-Worker.find({ name: "Валерий" });
 };
 
 //ADD worker

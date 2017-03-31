@@ -2,24 +2,27 @@ var express = require('express');
 var router = express.Router();
 var Worker = require('../models/worker');
 
+
+router.get('/users', function(req, res) {
+    Worker.find({}, function(err, users) {
+        res.json(users);
+    });
+});
+
+
+
 router.get('/',function (req,res) {
 
-    Worker.paginate({},{page: req.query['page'], limit: req.query['limit'] }, function (err, data) {
+    var page = +req.query['page'];
+    var limit = +req.query['limit'];
+
+    Worker.paginate({},{page: page, limit: limit }, function (err, data) {
         res.send(data);
     });
 });
 
 router.get('/:_id',function (req,res) {
     Worker.getWorkerById(req.params._id, function (err, worker) {
-        if(err){
-            throw err;
-        }
-        res.json(worker);
-    })
-});
-
-router.get('/:search',function (req,res) {
-    Worker.searchWorker ( req.params.name, function (err, worker) {
         if(err){
             throw err;
         }

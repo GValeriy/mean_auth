@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
+
     <!-- Mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Сотрудники</title>
+
     <!-- Material Design fonts -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
@@ -37,21 +39,23 @@
             <div class="nav navbar-nav navbar-right">
 
                 <!--Angular add modal-->
-                    <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openAdd()">Добавить сотрудника</button>
+                <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openAdd()">Добавить
+                    сотрудника
+                </button>
                 <!--/Angular add modal-->
 
-            </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 <!--Список сотрудников-->
-<div  class="container">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel" >
+            <div class="panel">
 
-                <table class="table table-striped" id="example" class="table table-striped table-bordered" >
+                <table class="table table-striped" id="example" class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Имя</th>
@@ -65,7 +69,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="worker in workers | filter: searchWord" >
+                    <tr ng-repeat="worker in workers | filter: searchWord">
 
                         <td>{{worker.name}}</td>
                         <td>{{worker.patronymic}}</td>
@@ -76,7 +80,9 @@
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
                         <td>
 
-                            <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openEdit(worker)">Редактировать</button>
+                            <button type="button" class="btn btn-raised btn-primary"
+                                    ng-click="$workContr.openEdit(worker)">edit
+                            </button>
 
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
 
@@ -85,13 +91,25 @@
                     </tbody>
                 </table>
                 <!--Pagination-->
+                <div class="row">
+                    <div class="col-md-6">
                 <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
                     ng-change="pageChanged()"></ul>
-
-                Show <select ng-model="viewby" ng-change="setItemsPerPage(viewby)">
-                <option>3</option><option>5</option><option>10</option><option>20</option>
-                <option>30</option><option>40</option><option>50</option></select>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="setItems">
+                Show <select ng-init="viewby = '3'" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
+                <option>3</option>
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+            </select>
                 records at a time.
+                    </div>
+                </div>
                 <!--/pagination-->
             </div>
         </div>
@@ -109,7 +127,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form class="form-horizontal" id="editangform"  novalidate>
+                        <form class="form-horizontal" id="editangform" novalidate>
                             <fieldset>
                                 <form name="userForm">
                                     <div class="form-group"
@@ -159,48 +177,69 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group"
                                      ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
-                                    <label for="angEditInput5" class="col-md-2 control-label">Пол</label>
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angEditInput5"
-                                               ng-model="worker.sex" placeholder="Пол" required>
+                                    <label class="col-md-2 control-label">Пол</label>
+
+                                    <div class="col-md-5 modalInput">
+
+                                        <input  type="radio" name="answer" value="ж." ng-model="worker.sex"/>женский
+                                    </div>
+                                    <div class="col-md-5 modalInput">
+                                        <input  type="radio" name="answer" value="м." ng-model="worker.sex"/>мужской
 
                                     </div>
                                 </div>
+
 
                                 <div class="form-group"
                                      ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
-                                    <label for="angEditInput6" class="col-md-2 control-label">Телефон</label>
+                                    <label class="col-md-2 control-label">Телефон</label>
 
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angEditInput6"
-                                               ng-model="worker.phone" placeholder="Телефон" required>
 
+                                        <input class="modalInput" type="text" ui-mask="+3(099) 999-99-99"
+                                               ng-model="worker.phone" model-view-value="true">
                                     </div>
                                 </div>
 
-                                <div class="form-group"
-                                     ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start  }">
-                                    <label for="angEditInput7" class="col-md-2 control-label">Начало дня</label>
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start}">
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angEditInput7"
-                                               ng-model="worker.work_start" placeholder="Начало рабочего дня"
-                                               required>
+                                        <label class="col-md-4 control-label">Начало дня</label>
+
+
+                                        <div class="col-md-8 modalInput">
+
+                                            <input type="text" class="form-control" size="8"
+                                                   ng-model="worker.work_start" bs-timepicker
+                                                   data-time-format="HH:mm" data-time-type="string" data-length="1"
+                                                   data-minute-step="1" data-arrow-behavior="picker">
+
+
+                                        </div>
                                     </div>
+
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop}">
 
-                                <div class="form-group"
-                                     ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop  }">
-                                    <label for="angEditInput8" class="col-md-2 control-label">Конец дня</label>
+                                        <label class="col-md-4 control-label">Конец дня</label>
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angEditInput8"
-                                               ng-model="worker.work_stop" placeholder="Конец рабочего дня"
-                                               required>
+                                        <div class="col-md-8 modalInput">
+
+                                            <input type="text" class="form-control" size="8" ng-model="worker.work_stop"
+                                                   bs-timepicker
+                                                   data-time-format="HH:mm" data-time-type="string" data-length="1"
+                                                   data-minute-step="1" data-arrow-behavior="picker">
+
+                                        </div>
                                     </div>
+
                                 </div>
 
                             </fieldset>
@@ -229,10 +268,12 @@
     <div class="modal-body" id="modal-body">
         <div class="panel panel-success">
             <div class="panel-body">
-                <div class="row">
+                <fieldset class="row">
                     <div class="col-md-12">
-                        <form class="form-horizontal" id="angform"  novalidate>
+                        <form class="form-horizontal" id="angform" novalidate>
+
                             <fieldset>
+
                                 <form name="userForm">
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">
@@ -281,83 +322,97 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group"
                                      ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
-                                    <label for="angAddInput5" class="col-md-2 control-label">Пол</label>
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angAddInput5"
-                                               ng-model="worker.sex" placeholder="Пол" required>
+                                    <label class="col-md-2 control-label">Пол</label>
+
+                                    <div class="col-md-5 modalInput">
+
+                                        <input type="radio" name="answer" value="ж." ng-model="worker.sex"/>женский
+                                    </div>
+                                    <div class="col-md-5 modalInput">
+                                        <input type="radio" name="answer" value="м." ng-model="worker.sex"/>мужской
 
                                     </div>
                                 </div>
 
                                 <div class="form-group"
                                      ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
-                                    <label for="angAddInput6" class="col-md-2 control-label">Телефон</label>
+                                    <label class="col-md-2 control-label">Телефон</label>
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angAddInput6"
-                                               ng-model="worker.phone" placeholder="Телефон" required>
+                                    <div class="col-md-10 modalInput">
 
+                                        <input type="text" ui-mask="+3(099) 999-99-99"
+                                               ng-model="worker.phone" model-view-value="true">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start}">
 
-                                <div class="form-group"
-                                     ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start  }">
-                                    <label for="angAddInput7" class="col-md-2 control-label">Начало дня</label>
+                                        <label class="col-md-4 control-label">Начало дня</label>
 
+                                        <div class="col-md-8">
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angAddInput7"
-                                               ng-model="worker.work_start" placeholder="Начало рабочего дня"
-                                               required>
+                                            <input type="text" class="form-control" size="8"
+                                                   ng-model="worker.work_start" bs-timepicker
+                                                   data-time-format="HH:mm" data-time-type="string" data-length="1"
+                                                   data-minute-step="1" data-arrow-behavior="picker">
 
-                                        <!--<div uib-timepicker ng-model="mytime"ng-model="worker.work_start" ng-change="changed()"-->
-                                             <!--hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>-->
+                                        </div>
                                     </div>
-
 
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop}">
 
-                                <div class="form-group"
-                                     ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop  }">
-                                    <label for="angAddInput8" class="col-md-2 control-label">Конец дня</label>
+                                        <label class="col-md-4 control-label">Конец дня</label>
 
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="angAddInput8"
-                                               ng-model="worker.work_stop" placeholder="Конец рабочего дня"
-                                               required>
+                                        <div class="col-md-8 modalInput">
+
+                                            <input type="text" class="form-control" size="8" ng-model="worker.work_stop"
+                                                   bs-timepicker
+                                                   data-time-format="HH:mm" data-time-type="string" data-length="1"
+                                                   data-minute-step="15" data-arrow-behavior="picker">
+
+                                        </div>
                                     </div>
+
                                 </div>
 
                             </fieldset>
                         </form>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
-
     </div>
+
 
     <div class="modal-footer">
 
-        <button class="btn btn-primary" type="button" ng-click="$addCtrl.ok();addWorker()">OK</button>
+        <button class="btn btn-primary" type="button" ng-click="$addCtrl.ok(); addWorker()">OK</button>
         <button class="btn btn-warning" type="button" ng-click="$addCtrl.cancel()">Cancel</button>
 
     </div>
 </script>
 <!-- /angular add modal window-->
 
-    <script src="lib/jquery.min.js"></script>
-    <script src="/lib/angular.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="https://code.angularjs.org/1.5.8/angular-animate.js"></script>
-    <script src="https://code.angularjs.org/1.5.8/angular-sanitize.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-    <script src="js/controllers/workers.js"></script>
-    <script src="js/controllers/modal.js"></script>
-    <script src="js/services/crud.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="/lib/angular.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="https://code.angularjs.org/1.5.8/angular-animate.js"></script>
+<script src="https://code.angularjs.org/1.5.8/angular-sanitize.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="js/controllers/workers.js"></script>
+<script src="js/controllers/modal.js"></script>
+<script src="js/services/crud.js"></script>
+<script src="/lib/angular-strap.js"></script>
+<script src="/lib/angular-strap.tpl.js"></script>
+<script src="lib/mask.js"></script>
 
 </body>
 </html>

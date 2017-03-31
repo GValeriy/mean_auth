@@ -4,3 +4,13 @@
     box-shadow: 0 16px 10px -12px rgba(0,0,0,0.3);
     border: 0;
 }
+
+.setItems {
+    margin: 20px 20px;
+    float: right;
+}
+
+.modalInput {
+    margin: 16px 0 0 0;
+
+}
