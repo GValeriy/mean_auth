@@ -12,9 +12,6 @@ myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, 
         $scope.mytime = d;
     };
 
-
-
-
     this.animationsEnabled = true;
 
     this.openAdd = function () {
