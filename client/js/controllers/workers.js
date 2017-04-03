@@ -3,6 +3,7 @@ var myApp = angular.module('myApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 
 myApp.controller('WorkersController', function ($scope, $http, $log, $uibModal, myService, $document) {
     console.log("WorkersController loaded... ");
 
+
     // MODAL WINDOWS
 
     this.animationsEnabled = true;

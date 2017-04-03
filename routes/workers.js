@@ -2,15 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Worker = require('../models/worker');
 
-
-router.get('/users', function(req, res) {
-    Worker.find({}, function(err, users) {
-        res.json(users);
-    });
-});
-
-
-
 router.get('/',function (req,res) {
 
     var page = +req.query['page'];
