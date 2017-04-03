@@ -1,23 +1,35 @@
-
+(function () {
+    'use strict';
 angular
     .module('app')
-    .factory('crudService', Service);
+    .factory('crudService', crudService);
 
 
-function Service($http) {
+function crudService($http) {
 
 // service('myService',  function ($http) {
 
-    this.getWorker = function (id) {
-        return $http.get("/api/workers/" + id);
+    var service = {};
+
+    service.getWorker = getWorker;
+    service.addWorker = addWorker;
+    service.getWorkers = getWorkers;
+    service.removeWorker = removeWorker;
+
+
+    return service;
+
+
+    function getWorker (id) {
+        return $http.get("/workers/" + id);
     };
 
-    this.addWorker = function (worker) {
-        return $http.post('/api/workers/', worker);
+    function addWorker (worker) {
+        return $http.post('/workers/', worker);
     };
 
-    this.getWorkers = function (page, limit) {
-        return $http.get("/api/workers", {
+    function getWorkers (page, limit) {
+        return $http.get("/workers", {
             params: {
                 page: page,
                 limit: limit
@@ -25,9 +37,9 @@ function Service($http) {
         });
     };
 
-    this.removeWorker = function (id) {
-        return $http.delete('/api/workers/' + id);
+    function removeWorker (id) {
+        return $http.delete('/workers/' + id);
     };
 };
 
-// });
+})();

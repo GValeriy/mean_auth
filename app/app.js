@@ -1,8 +1,9 @@
 ﻿(function () {
     'use strict';
-    // ,'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'mgcrea.ngStrap','ui.mask'
+    // 'mgcrea.ngStrap'
+
         angular
-        .module('app', ['ui.router'])
+        .module('app', ['ui.router','ngAnimate','ui.bootstrap','ui.mask', 'ngSanitize'])
         .config(config)
         .run(run);
 

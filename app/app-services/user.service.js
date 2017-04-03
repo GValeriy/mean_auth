@@ -3,9 +3,9 @@
 
     angular
         .module('app')
-        .factory('UserService', Service);
+        .factory('UserService', UserService);
 
-    function Service($http, $q) {
+    function UserService($http, $q) {
         var service = {};
 
         service.GetCurrent = GetCurrent;
