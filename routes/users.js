@@ -48,7 +48,6 @@ apiRoutes.post('/authenticate', function(req, res) {
     });
 });
 
-
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
 
@@ -81,13 +80,10 @@ apiRoutes.use(function(req, res, next) {
     }
 });
 
-
 apiRoutes.get('/users', function(req, res) {
     User.find({}, function(err, users) {
         res.json(users);
     });
 });
-
-
 
 module.exports = apiRoutes;

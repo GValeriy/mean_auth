@@ -1,4 +1,4 @@
-﻿﻿var config = require('config.js');
+﻿var config = require('config.js');
 var express = require('express');
 var router = express.Router();
 var userService = require('services/user.service');
@@ -20,13 +20,13 @@ function authenticateUser(req, res) {
                 res.send({ token: token });
             } else {
                 // authentication failed
-                res.status(401).send('Username1 or password is incorrect');
+                res.status(401).send('Username or password is incorrect');
             }
         })
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 function registerUser(req, res) {
     userService.create(req.body)
@@ -36,7 +36,7 @@ function registerUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 function getCurrentUser(req, res) {
     userService.getById(req.user.sub)
@@ -50,7 +50,7 @@ function getCurrentUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 function updateUser(req, res) {
     var userId = req.user.sub;
@@ -66,7 +66,7 @@ function updateUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 function deleteUser(req, res) {
     var userId = req.user.sub;
@@ -82,4 +82,4 @@ function deleteUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};

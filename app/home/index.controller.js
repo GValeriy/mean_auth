@@ -1,4 +1,4 @@
-﻿﻿(function () {
+﻿(function () {
     'use strict';
 
     var app=angular.module('app');
@@ -75,6 +75,7 @@
             $scope.workers = response.docs;
             $scope.itemsPerPage = response.limit;
 
+
         });
     };
     $scope.setItemsPerPage = function(num) {
@@ -83,9 +84,8 @@
             $scope.totalItems = response.total;
             $scope.workers = response.docs;
             $scope.itemsPerPage = response.limit;
+            $scope.currentPage = 1; //reset to first page
         });
-
-        $scope.currentPage = 1; //reset to first page
     }
 
 });

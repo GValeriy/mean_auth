@@ -48,6 +48,7 @@
                         <th>Пол</th>
                         <th>Телефон</th>
                         <th>Рабочее время</th>
+                        <th>Роль</th>
                         <th>Изменить</th>
                     </tr>
                     </thead>
@@ -61,6 +62,7 @@
                         <td>{{worker.sex}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
+                        <td>{{worker.role}}</td>
                         <td>
 
                             <button type="button" class="btn btn-raised btn-primary"
@@ -150,7 +152,7 @@
                                         <label for="angEditInput4" class="col-md-2 control-label">Должность</label>
 
                                         <div class="col-md-10">
-                                            <select id="angEditInput4" ng-init="worker.post='Программист'"
+                                            <select id="angEditInput4"
                                                     ng-model="worker.post" class="form-control">
                                                 <option>Программист</option>
                                                 <option>Дизайнер</option>
@@ -223,6 +225,15 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div class="col-md-10">
+                                        <select id="angEditInput9"
+                                                ng-model="worker.role" class="form-control">
+                                            <option>Администратор</option>
+                                            <option>Руководитель</option>
+                                            <option>Пользователь</option>
+
+                                        </select>
                                     </div>
 
                                 </fieldset>
@@ -364,6 +375,15 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div class="col-md-10">
+                                        <select id="angAddInput9" ng-init="worker.role='Администратор'"
+                                                ng-model="worker.role" class="form-control">
+                                            <option>Администратор</option>
+                                            <option>Руководитель</option>
+                                            <option>Пользователь</option>
+
+                                        </select>
                                     </div>
 
                                 </fieldset>

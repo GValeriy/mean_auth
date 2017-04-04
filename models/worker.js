@@ -30,19 +30,18 @@ var workerSchema = mongoose.Schema({
     work_stop:{
         type: String
     },
+    role:{
+        type: String
+    },
+    hash:{
+        type: String
+    },
     create_date:{
         type: Date,
         default: Date.now
     }
 });
 
-// var Schema = mongoose.Schema;
-//
-// module.exports = mongoose.model('User', new Schema({
-//     name: String,
-//     password: String,
-//     admin: Boolean
-// }));
 
 workerSchema.plugin(mongoosePaginate);
 
@@ -76,7 +75,8 @@ module.exports.updateWorker = function (id, worker, options, callback) {
         sex:worker.sex,
         phone:worker.phone,
         work_start:worker.work_start,
-        work_stop:worker.work_stop
+        work_stop:worker.work_stop,
+        role:worker.role
     };
     Worker.findOneAndUpdate(query, update, options, callback);
 };
