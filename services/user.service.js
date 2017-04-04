@@ -1,4 +1,4 @@
-﻿var config = require('/home/vg/work/mean1/config.js');
+﻿var config = require('config.js');
 var _ = require('lodash');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');

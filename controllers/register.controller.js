@@ -1,7 +1,7 @@
-﻿var express = require('express');
+﻿﻿var express = require('express');
 var router = express.Router();
 var request = require('request');
-var config = require('/home/vg/work/mean1/config.js');
+var config = require('config.js');
 
 router.get('/', function (req, res) {
     res.render('register');

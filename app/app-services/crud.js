@@ -1,13 +1,9 @@
 (function () {
     'use strict';
-angular
-    .module('app')
-    .factory('crudService', crudService);
 
+angular.module('app').factory('crudService', crudService);
 
 function crudService($http) {
-
-// service('myService',  function ($http) {
 
     var service = {};
 
@@ -16,9 +12,7 @@ function crudService($http) {
     service.getWorkers = getWorkers;
     service.removeWorker = removeWorker;
 
-
     return service;
-
 
     function getWorker (id) {
         return $http.get("/workers/" + id);

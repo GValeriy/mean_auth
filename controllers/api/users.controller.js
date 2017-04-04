@@ -1,4 +1,4 @@
-﻿var config = require('/home/vg/work/mean1/config.js');
+﻿﻿var config = require('config.js');
 var express = require('express');
 var router = express.Router();
 var userService = require('services/user.service');
@@ -20,7 +20,7 @@ function authenticateUser(req, res) {
                 res.send({ token: token });
             } else {
                 // authentication failed
-                res.status(401).send('Username or password is incorrect');
+                res.status(401).send('Username1 or password is incorrect');
             }
         })
         .catch(function (err) {

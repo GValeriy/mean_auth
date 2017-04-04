@@ -1,9 +1,10 @@
+var app=angular.module('app');
 
-app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, myService) {
+app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, crudService) {
 
     $scope.addWorker = function () {
 
-        myService.addWorker($scope.worker).success(function (response) {
+        crudService.addWorker($scope.worker).success(function (response) {
 
         });
     };
@@ -18,12 +19,12 @@ app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, myServ
 
 });
 
-app.controller('ModalEditCtrl', function ($scope,$uibModalInstance, worker,  $http, myService) {
+app.controller('ModalEditCtrl', function ($scope,$uibModalInstance, worker,  $http, crudService) {
 
     $scope.worker= worker;
 
     $scope.updateWorker = function () {
-        $http.put('/api/workers/' + $scope.worker._id, $scope.worker).success(function (response) {
+        $http.put('/workers/' + $scope.worker._id, $scope.worker).success(function (response) {
 
         });
     };

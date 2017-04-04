@@ -1,13 +1,13 @@
-﻿(function () {
+﻿﻿(function () {
     'use strict';
-    // 'mgcrea.ngStrap'
 
         angular
-        .module('app', ['ui.router','ngAnimate','ui.bootstrap','ui.mask', 'ngSanitize'])
+        .module('app', ['ui.router','ngAnimate','ui.bootstrap','ui.mask', 'mgcrea.ngStrap', 'ngSanitize'])
         .config(config)
         .run(run);
 
     function config($stateProvider, $urlRouterProvider) {
+
         // default route
         $urlRouterProvider.otherwise("/");
 
