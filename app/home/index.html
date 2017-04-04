@@ -48,6 +48,7 @@
                         <th>Пол</th>
                         <th>Телефон</th>
                         <th>Рабочее время</th>
+                        <th>Логин</th>
                         <th>Роль</th>
                         <th>Изменить</th>
                     </tr>
@@ -62,6 +63,7 @@
                         <td>{{worker.sex}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
+                        <td>{{worker.username}}</td>
                         <td>{{worker.role}}</td>
                         <td>
 
@@ -151,6 +153,7 @@
                                          ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
                                         <label for="angEditInput4" class="col-md-2 control-label">Должность</label>
 
+
                                         <div class="col-md-10">
                                             <select id="angEditInput4"
                                                     ng-model="worker.post" class="form-control">
@@ -226,6 +229,11 @@
                                         </div>
 
                                     </div>
+
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
+                                        <label class="col-md-2 control-label">Роль</label>
+
                                     <div class="col-md-10">
                                         <select id="angEditInput9"
                                                 ng-model="worker.role" class="form-control">
@@ -376,6 +384,10 @@
                                         </div>
 
                                     </div>
+
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
+                                        <label class="col-md-2 control-label">Роль</label>
                                     <div class="col-md-10">
                                         <select id="angAddInput9" ng-init="worker.role='Администратор'"
                                                 ng-model="worker.role" class="form-control">

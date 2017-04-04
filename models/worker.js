@@ -33,6 +33,9 @@ var workerSchema = mongoose.Schema({
     role:{
         type: String
     },
+    username:{
+        type: String
+    },
     hash:{
         type: String
     },
@@ -76,7 +79,8 @@ module.exports.updateWorker = function (id, worker, options, callback) {
         phone:worker.phone,
         work_start:worker.work_start,
         work_stop:worker.work_stop,
-        role:worker.role
+        role:worker.role,
+        username:worker.username
     };
     Worker.findOneAndUpdate(query, update, options, callback);
 };

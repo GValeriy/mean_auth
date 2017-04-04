@@ -3,7 +3,7 @@ var app = express();
 var apiRoutes = express.Router();
 var User = require('../models/user');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
-var config = require('/home/vg/work/mean1/config'); // get our config file
+var config = require('config'); // get our config file
 app.set('superSecret', config.secret); // secret variable
 
 // route to show a random message (GET http://localhost:8080/api/)
