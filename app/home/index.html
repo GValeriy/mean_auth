@@ -1,4 +1,4 @@
-﻿<div class="navbar navbar-inverse" id="nav">
+﻿﻿﻿<div class="navbar navbar-inverse" id="nav">
     <div class="container">
         <div class="navbar-header">
 
@@ -20,7 +20,7 @@
             <div class="nav navbar-nav navbar-right">
 
                 <!--Angular add modal-->
-                <button type="button" class="btn btn-raised btn-primary" ng-click="$workContr.openAdd()">Добавить
+                <button type="button" class="btn btn-raised btn-primary" ng-click="workCtrl.openAdd()">Добавить
                     сотрудника
                 </button>
                 <!--/Angular add modal-->
@@ -46,10 +46,10 @@
                         <th>Фамилия</th>
                         <th>Должность</th>
                         <th>Пол</th>
+                        <th>Роль</th>
                         <th>Телефон</th>
                         <th>Рабочее время</th>
                         <th>Логин</th>
-                        <th>Роль</th>
                         <th>Изменить</th>
                     </tr>
                     </thead>
@@ -61,14 +61,14 @@
                         <td>{{worker.surname}}</td>
                         <td>{{worker.post}}</td>
                         <td>{{worker.sex}}</td>
+                        <td>{{worker.role}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
                         <td>{{worker.username}}</td>
-                        <td>{{worker.role}}</td>
                         <td>
 
                             <button type="button" class="btn btn-raised btn-primary"
-                                    ng-click="$workContr.openEdit(worker)">edit
+                                    ng-click="workCtrl.openEdit(worker)">edit
                             </button>
 
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
@@ -180,6 +180,18 @@
 
                                         </div>
                                     </div>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.role, 'has-success': worker.role  }">
+                                        <label class="col-md-2 control-label">Роль</label>
+
+                                        <div class="col-md-10">
+                                            <select ng-model="worker.role" class="form-control">
+                                                <option>Администратор</option>
+                                                <option>Руководитель</option>
+                                                <option>Пользователь</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
 
                                     <div class="form-group"
@@ -230,19 +242,7 @@
 
                                     </div>
 
-                                    <div class="form-group"
-                                         ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
-                                        <label class="col-md-2 control-label">Роль</label>
 
-                                    <div class="col-md-10">
-                                        <select id="angEditInput9"
-                                                ng-model="worker.role" class="form-control">
-                                            <option>Администратор</option>
-                                            <option>Руководитель</option>
-                                            <option>Пользователь</option>
-
-                                        </select>
-                                    </div>
 
                                 </fieldset>
                             </form>
@@ -339,6 +339,19 @@
 
                                         </div>
                                     </div>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.role, 'has-success': worker.role  }">
+                                        <label class="col-md-2 control-label">Роль</label>
+
+                                        <div class="col-md-10">
+                                            <select  ng-init="worker.role='Пользователь'"
+                                                     ng-model="worker.role" class="form-control">
+                                                <option>Администратор</option>
+                                                <option>Руководитель</option>
+                                                <option>Пользователь</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
@@ -383,19 +396,6 @@
                                             </div>
                                         </div>
 
-                                    </div>
-
-                                    <div class="form-group"
-                                         ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
-                                        <label class="col-md-2 control-label">Роль</label>
-                                    <div class="col-md-10">
-                                        <select id="angAddInput9" ng-init="worker.role='Администратор'"
-                                                ng-model="worker.role" class="form-control">
-                                            <option>Администратор</option>
-                                            <option>Руководитель</option>
-                                            <option>Пользователь</option>
-
-                                        </select>
                                     </div>
 
                                 </fieldset>

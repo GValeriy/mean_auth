@@ -38,11 +38,12 @@ var workerSchema = mongoose.Schema({
     },
     hash:{
         type: String
-    },
-    create_date:{
-        type: Date,
-        default: Date.now
     }
+    // ,
+    // create_date:{
+    //     type: Date,
+    //     default: Date.now
+    // }
 });
 
 

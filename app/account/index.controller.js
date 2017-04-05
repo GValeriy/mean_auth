@@ -8,7 +8,8 @@
     function Controller($window, UserService, FlashService) {
         var vm = this;
 
-        vm.user = null;
+        vm.worker = null;
+
         vm.saveUser = saveUser;
         vm.deleteUser = deleteUser;
 
@@ -16,23 +17,29 @@
 
         function initController() {
             // get current user
+            console.log("initController loaded");
+
             UserService.GetCurrent().then(function (user) {
-                vm.user = user;
+                vm.worker = user;
+                console.log();
             });
-        }
+
+        };
 
         function saveUser() {
-            UserService.Update(vm.user)
-                .then(function () {
+
+            UserService.Update(vm.worker).then(function () {
                     FlashService.Success('User updated');
                 })
+
                 .catch(function (error) {
                     FlashService.Error(error);
                 });
-        }
+
+        };
 
         function deleteUser() {
-            UserService.Delete(vm.user._id)
+            UserService.Delete(vm.worker._id)
                 .then(function () {
                     // log user out
                     $window.location = '/login';
@@ -40,7 +47,9 @@
                 .catch(function (error) {
                     FlashService.Error(error);
                 });
-        }
+        };
+
+
     }
 
 })();

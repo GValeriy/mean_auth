@@ -73,7 +73,7 @@ function deleteUser(req, res) {
     if (req.params._id !== userId) {
         // can only delete own account
         return res.status(401).send('You can only delete your own account');
-    }
+    };
 
     userService.delete(userId)
         .then(function () {

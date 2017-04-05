@@ -3,7 +3,7 @@
 
     var app=angular.module('app');
 
-    app.controller('WorkersController', function ($scope, $http, $log, $uibModal, crudService,  $document, UserService) {
+    app.controller('WorkersController', function ($scope, $http, $log, $uibModal, crudService) {
     console.log("WorkersController loaded... ");
 
     // MODAL WINDOWS
@@ -44,6 +44,9 @@
                 },
                 worker: worker
             }
+        });
+        modalInstance.result.then(function (data) {
+
         });
     };
 

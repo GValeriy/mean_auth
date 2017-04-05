@@ -16,27 +16,71 @@
                 url: '/',
                 templateUrl: 'home/index.html',
                 controller: 'WorkersController',
-                controllerAs: '$workContr',
-                data: { activeTab: 'home' }
+                controllerAs: 'workCtrl',
+                // data: {activeTab: 'home'}
+                // ,
+                data: {
+            needAdmin: true
+        }
+                //     ,
+                // role: user.role}
             })
             .state('account', {
                 url: '/account',
                 templateUrl: 'account/index.html',
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
-                data: { activeTab: 'account' }
-            });
-    }
+                resolve: {
+                    // contacts: function (UserService) {
+                    //     return UserService.GetCurrent().then(function (user) {
+                    //         console.log('State resolve, ', user.role);
+                    //     });
+                    //
+                    // },
+                },
+                data: {
+                    needAdmin: false
+                }
+                // data: {activeTab: 'home'}
 
-    function run($http, $rootScope, $window) {
+            })
+    };
+
+    function run($http, $rootScope,$state, $window) {
         // add JWT token as default auth header
+
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
 
+
         // update active tab on state change
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            $rootScope.activeTab = toState.data.activeTab;
+        // $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+
+            // $rootScope.activeTab = toState.data.activeTab;
+
+        //
+        // });
+
+        $rootScope.$on('$stateChangeStart', function(e, to) {
+
+            // UserService.GetCurrent().then(function (user,$state) {
+
+                // console.log("$stateChangeStart, ", user.role);
+
+                // var auth = user.role;
+                var auth = 'Администратор1';
+
+                if (to.data.needAdmin && auth !== 'Администратор') {
+                    e.preventDefault();
+                    $state.go('home');
+                }
+
+            // });
+
+
         });
-    }
+
+
+    };
 
     // manually bootstrap angular after the JWT token is retrieved from the server
     $(function () {
@@ -47,4 +91,5 @@
             angular.bootstrap(document, ['app']);
         });
     });
+
 })();

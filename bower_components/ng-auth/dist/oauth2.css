@@ -1,0 +1,5 @@
+/* Css rule to enable hiding for auth */
+
+[oauth-hide] {
+	display: none;
+}

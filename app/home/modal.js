@@ -19,7 +19,7 @@ app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, crudSe
 
 });
 
-app.controller('ModalEditCtrl', function ($scope,$uibModalInstance, worker,  $http, crudService) {
+app.controller('ModalEditCtrl', function ($scope,$uibModalInstance, worker,  $http) {
 
     $scope.worker= worker;
 

@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+<head >
     <meta charset="utf-8" />
     <title>MEAN Stack User Registration and Login Example Application</title>
 
@@ -15,10 +15,11 @@
 </head>
 <body class="container">
     <!-- header -->
-    <header>
+    <header >
         <ul class="nav nav-tabs">
             <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
-            <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
+            <li ng-class="{active: activeTab === 'home'}"><a ui-sref="account">Account</a></li>
+            <!--ng-hide-->
             <li><a href="/login" target="_self">Logout</a></li>
         </ul>
         <div class="flash-message" ng-if="flash">
@@ -41,15 +42,18 @@
     <script src="lib/bootstrap.min.js"></script>
     <script src="lib/angular-strap.js"></script>
     <script src="lib/angular-strap.tpl.js"></script>
+    <script src="lib/ng-auth.js"></script>
     <script src="https://code.angularjs.org/1.5.8/angular-animate.js"></script>
     <script src="https://code.angularjs.org/1.5.8/angular-sanitize.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
 
     <!-- application scripts -->
     <script src="app.js"></script>
     <script src="app-services/user.service.js"></script>
     <script src="app-services/flash.service.js"></script>
-    <script src="app-services/crud.js"></script>
+    <script src="app-services/crud.service.js"></script>
+    <script src="app-services/SessionService.js"></script>
     <script src="home/modal.js"></script>
     <script src="home/index.controller.js"></script>
     <script src="account/index.controller.js"></script>

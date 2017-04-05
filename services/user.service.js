@@ -118,9 +118,19 @@ function update(_id, userParam) {
     function updateUser() {
         // fields to update
         var set = {
-            name: userParam.name,
-            surname: userParam.surname,
-            username: userParam.username,
+
+
+            name:userParam.name,
+            patronymic:userParam.patronymic,
+            surname:userParam.surname,
+            username:userParam.username,
+            post:userParam.post,
+            sex:userParam.sex,
+            phone:userParam.phone,
+            work_start:userParam.work_start,
+            work_stop:userParam.work_stop,
+            role:userParam.role
+
         };
 
         // update password if it was entered
