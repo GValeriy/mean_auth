@@ -20,7 +20,7 @@
                 // data: {activeTab: 'home'}
                 // ,
                 data: {
-            needAdmin: true
+            needAdmin: false
         }
                 //     ,
                 // role: user.role}
@@ -39,14 +39,14 @@
                     // },
                 },
                 data: {
-                    needAdmin: false
+                    needAdmin: true
                 }
                 // data: {activeTab: 'home'}
 
             })
     };
 
-    function run($http, $rootScope,$state, $window) {
+    function run($http, $rootScope,$state, $window,UserService) {
         // add JWT token as default auth header
 
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
@@ -60,21 +60,21 @@
         //
         // });
 
-        $rootScope.$on('$stateChangeStart', function(e, to) {
+        $rootScope.$on('$stateChangeSuccess', function(e, to) {
 
-            // UserService.GetCurrent().then(function (user,$state) {
+            UserService.GetCurrent().then(function (user) {
 
-                // console.log("$stateChangeStart, ", user.role);
+                console.log("$stateChangeStart, ", user.role);
 
-                // var auth = user.role;
-                var auth = 'Администратор1';
+                var auth = user.role;
+                // var auth = 'Администратор1';
 
                 if (to.data.needAdmin && auth !== 'Администратор') {
                     e.preventDefault();
                     $state.go('home');
                 }
-
-            // });
+            // $state.go('home');
+            });
 
 
         });
