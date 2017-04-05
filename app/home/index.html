@@ -242,7 +242,18 @@
 
                                     </div>
 
+                                    <form name="userForm">
+                                        <div class="form-group"
+                                             ng-class="{ 'has-error': !worker.username, 'has-success': worker.username  }">
+                                            <label for="angEditInput1" class="col-md-2 control-label">Имя</label>
 
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control"
+                                                       ng-model="worker.username" placeholder="username" required>
+
+                                            </div>
+                                        </div>
+                                    </form>
 
                                 </fieldset>
                             </form>
