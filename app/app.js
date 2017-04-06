@@ -14,8 +14,8 @@
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'home/index.html',
-                controller: 'WorkersController',
+                templateUrl: 'views/admin.html',
+                controller: 'workersController',
                 controllerAs: 'workCtrl',
                 data: {
                 role: 'admin'
@@ -23,17 +23,17 @@
             })
             .state('account', {
                 url: '/account',
-                templateUrl: 'account/index.html',
-                controller: 'Account.IndexController',
-                controllerAs: 'vm',
+                templateUrl: 'views/user.html',
+                controller: 'workersController',
+                controllerAs: 'workCtrl',
                 data: {
                     role: 'user'
                 }
             })
             .state('control', {
                 url: '/control',
-                templateUrl: 'home/control.html',
-                controller: 'WorkersController',
+                templateUrl: 'views/control.html',
+                controller: 'workersController',
                 controllerAs: 'workCtrl',
                 data: {
                     role: 'control'
@@ -41,16 +41,15 @@
             })
     };
 
-    function run($http, $rootScope,$state,  $window,UserService) {
+    function run($http, $rootScope,$state,  $window, crudService) {
         // add JWT token as default auth header
 
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
 
         $rootScope.$on('$stateChangeSuccess', function(e, to) {
-            // $rootScope.activeTab = toState.data.activeTab;
-            UserService.GetCurrent().then(function (user) {
 
-                // console.log("$stateChangeStart, ", user.role);
+            crudService.GetCurrent().then(function (user) {
+
                 var auth = user.role;
 
                 if (to.data.role !=='admin' && auth === 'Администратор' ) {

@@ -2,32 +2,32 @@
 <div class="form-container">
     <form method="post">
 
-        <div class="form-group" ng-class="{ 'has-error': !vm.worker.name, 'has-success': vm.worker.name  }">
+        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.name, 'has-success': workCtrl.worker.name  }">
             <label class=" control-label" for="name">Имя</label>
-            <input type="text" id="name" class="form-control" ng-model="vm.worker.name" required />
+            <input type="text" id="name" class="form-control" ng-model="workCtrl.worker.name" required />
         </div>
 
-        <div class="form-group" ng-class="{ 'has-error': !vm.worker.patronymic, 'has-success': vm.worker.patronymic  }">
+        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.patronymic, 'has-success': workCtrl.worker.patronymic  }">
             <label class=" control-label" >Отчество</label>
-            <input type="text" id="name1" class="form-control" ng-model="vm.worker.patronymic" required />
+            <input type="text" id="name1" class="form-control" ng-model="workCtrl.worker.patronymic" required />
         </div>
 
-        <div class="form-group" ng-class="{ 'has-error': !vm.worker.surname, 'has-success': vm.worker.surname  }">
+        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.surname, 'has-success': workCtrl.worker.surname  }">
             <label class=" control-label" for="lastName">Фамилия</label>
-            <input type="text" id="lastName" class="form-control" ng-model="vm.worker.surname" required />
+            <input type="text" id="lastName" class="form-control" ng-model="workCtrl.worker.surname" required />
         </div>
 
-        <div class="form-group" ng-class="{ 'has-error': !vm.worker.username, 'has-success': vm.worker.username  }">
+        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.username, 'has-success': workCtrl.worker.username  }">
             <label class=" control-label" for="username">Имя пользователя</label>
-            <input type="text" id="username" class="form-control" ng-model="vm.worker.username" required />
+            <input type="text" id="username" class="form-control" ng-model="workCtrl.worker.username" required />
         </div>
 
 
 
-        <div class="form-group" ng-class="{ 'has-error': !vm.worker.post, 'has-success': vm.worker.post  }">
+        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.post, 'has-success': workCtrl.worker.post  }">
                                     <label for="angEditInput4" class="control-label">Должность</label>
                                         <select id="angEditInput4"
-                                                ng-model="vm.worker.post" class="form-control">
+                                                ng-model="workCtrl.worker.post" class="form-control">
                                             <option>Программист</option>
                                             <option>Дизайнер</option>
                                             <option>Менеджер</option>
@@ -37,17 +37,17 @@
                                     </div>
 
 
-                                <div class="form-group" ng-class="{ 'has-error': !vm.worker.sex, 'has-success': vm.worker.sex  }">
+                                <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.sex, 'has-success': workCtrl.worker.sex  }">
 
                                     <label class="control-label">Пол</label>
 
                                     <div class="row">
                                     <div class="col-md-4 modalInput">
 
-                                        <input  type="radio" name="answer" value="ж." ng-model="vm.worker.sex"/>женский
+                                        <input  type="radio" name="answer" value="ж." ng-model="workCtrl.worker.sex"/>женский
                                     </div>
                                     <div class="col-md-4 modalInput">
-                                        <input  type="radio" name="answer" value="м." ng-model="vm.worker.sex"/>мужской
+                                        <input  type="radio" name="answer" value="м." ng-model="workCtrl.worker.sex"/>мужской
 
                                     </div>
                                 </div>
@@ -55,18 +55,18 @@
 
 
                                 <div class="form-group"
-                                     ng-class="{ 'has-error': !vm.worker.phone, 'has-success': vm.worker.phone  }">
+                                     ng-class="{ 'has-error': !workCtrl.worker.phone, 'has-success': workCtrl.worker.phone  }">
                                     <label class=" control-label">Телефон</label>
 <div>
                                         <input class="modalInput" type="text" ui-mask="+3(099) 999-99-99"
-                                               ng-model="vm.worker.phone" model-view-value="true">
+                                               ng-model="workCtrl.worker.phone" model-view-value="true">
                                     </div>
 </div>
                                 <div class="row ">
 
                                 <div class="col-md-4 worktime">
                                     <div class="form-group"
-                                         ng-class="{ 'has-error': !vm.worker.work_start, 'has-success': vm.worker.work_start}">
+                                         ng-class="{ 'has-error': !workCtrl.worker.work_start, 'has-success': workCtrl.worker.work_start}">
 
                                         <label class="col-md-4 control-label">Начало дня</label>
 
@@ -74,7 +74,7 @@
                                         <div class="col-md-8 modalInput">
 
                                             <input type="text" class="form-control" size="8"
-                                                   ng-model="vm.worker.work_start" bs-timepicker
+                                                   ng-model="workCtrl.worker.work_start" bs-timepicker
                                                    data-time-format="HH:mm" data-time-type="string" data-length="1"
                                                    data-minute-step="1" data-arrow-behavior="picker">
                                         </div>
@@ -83,13 +83,13 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group"
-                                         ng-class="{ 'has-error': !vm.worker.work_stop, 'has-success': vm.worker.work_stop}">
+                                         ng-class="{ 'has-error': !workCtrl.worker.work_stop, 'has-success': workCtrl.worker.work_stop}">
 
                                         <label class="col-md-4 control-label">Конец дня</label>
 
                                         <div class="col-md-8 modalInput">
 
-                                            <input type="text" class="form-control" size="8" ng-model="vm.worker.work_stop"
+                                            <input type="text" class="form-control" size="8" ng-model="workCtrl.worker.work_stop"
                                                    bs-timepicker
                                                    data-time-format="HH:mm" data-time-type="string" data-length="1"
                                                    data-minute-step="1" data-arrow-behavior="picker">
@@ -99,9 +99,9 @@
                                 </div>
                                 </div>
 
-                                <div class="form-group" ng-class="{ 'has-error': !vm.worker.password, 'has-success': vm.worker.password}">
+                                <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.password, 'has-success': workCtrl.worker.password}">
                                     <label class=" control-label"  for="password">Пароль</label>
-                                    <input type="password" id="password" class="form-control" ng-model="vm.worker.password" />
+                                    <input type="password" id="password" class="form-control" ng-model="workCtrl.worker.password" />
                                 </div>
 
 
@@ -112,8 +112,8 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-primary" ng-click="vm.saveUser()">Save</button>
-            <button class="btn btn-danger" ng-click="vm.deleteUser()">Delete</button>
+            <button class="btn btn-primary" ng-click="workCtrl.saveUser()">Save</button>
+            <button class="btn btn-danger" ng-click="workCtrl.deleteUser()">Delete</button>
         </div>
     </form>
 </div>
