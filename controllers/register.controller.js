@@ -7,9 +7,11 @@ var Worker = require('../models/worker');
 router.get('/', function (req, res) {
 
     Worker.paginate({},{page: 5, limit: 100 }, function (err, data) {
+    console.log('data.total, ',data.total);
 
-        if(data.total ===null)
+        if(!data.total)
         res.render('registerAdmin');
+        else
         res.render('register');
 
     });
