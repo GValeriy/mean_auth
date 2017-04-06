@@ -6,14 +6,11 @@ var Worker = require('../models/worker');
 
 router.get('/', function (req, res) {
 
-    Worker.paginate({},{page: 5, limit: 100 }, function (err, data) {
-    console.log('data.total, ',data.total);
-
+    Worker.paginate({},{}, function (err, data) {
         if(!data.total)
         res.render('registerAdmin');
         else
         res.render('register');
-
     });
 
 });
@@ -28,21 +25,6 @@ router.post('/', function (req, res) {
         if (error) {
             return res.render('register', { error: 'An error occurred' });
         }
-
-        // Worker.paginate({},{page: 5, limit: 100 }, function (err, data) {
-        //
-        //     console.log(data.total);
-
-            // if (response.statusCode !== 200 ) {
-            //     return res.render('register', {
-            //         error: response.body,
-            //         name: req.body.name,
-            //         surname: req.body.surname
-            //         ,
-            //         role:
-            //     });
-            // }
-        // });
 
         if (response.statusCode !== 200 ) {
             return res.render('register', { error: response.body});
