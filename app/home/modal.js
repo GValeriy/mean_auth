@@ -3,9 +3,7 @@ var app=angular.module('app');
 app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, crudService) {
 
     $scope.addWorker = function () {
-
         crudService.addWorker($scope.worker).success(function (response) {
-
         });
     };
 

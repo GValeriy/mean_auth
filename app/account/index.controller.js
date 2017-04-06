@@ -1,9 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular
-        .module('app')
-        .controller('Account.IndexController', Controller);
+    angular.module('app').controller('Account.IndexController', Controller);
 
     function Controller($window, UserService, FlashService) {
         var vm = this;
@@ -49,7 +47,6 @@
                 });
         };
 
-
-    }
+    };
 
 })();

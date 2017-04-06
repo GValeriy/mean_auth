@@ -18,9 +18,8 @@
                 controller: 'WorkersController',
                 controllerAs: 'workCtrl',
                 data: {
-            role: 'admin'
+                role: 'admin'
         }
-
             })
             .state('account', {
                 url: '/account',
@@ -30,7 +29,6 @@
                 data: {
                     role: 'user'
                 }
-
             })
             .state('control', {
                 url: '/control',
@@ -40,11 +38,10 @@
                 data: {
                     role: 'control'
                 }
-
             })
     };
 
-    function run($http, $rootScope,$state, $window,UserService) {
+    function run($http, $rootScope,$state,  $window,UserService) {
         // add JWT token as default auth header
 
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
@@ -53,25 +50,24 @@
             // $rootScope.activeTab = toState.data.activeTab;
             UserService.GetCurrent().then(function (user) {
 
-                console.log("$stateChangeStart, ", user.role);
+                // console.log("$stateChangeStart, ", user.role);
                 var auth = user.role;
 
-                if (to.data.role ==='admin' && auth !== 'Администратор' ) {
-
-
-                    if (to.data.role === 'user' && auth !== 'Пользователь') {
-                        $state.go('control');
-                        console.log("Вы руководитель ");
-                    }
-                    else
-                    {
-                        e.preventDefault();
-                        $state.go('account');
-                        console.log("Вы Пользователь ");
-                    }
-
+                if (to.data.role !=='admin' && auth === 'Администратор' ) {
+                    e.preventDefault();
+                    alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
+                    $state.go('home');
                 }
-
+                    if (to.data.role !== 'user' && auth === 'Пользователь') {
+                        e.preventDefault();
+                        alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
+                        $state.go('account');
+                    }
+                    if (to.data.role !== 'control' && auth === 'Руководитель') {
+                        e.preventDefault();
+                        alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
+                        $state.go('control');
+                    }
             });
         });
     };

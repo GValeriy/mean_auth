@@ -31,7 +31,6 @@ function authenticate(username, password) {
             deferred.resolve();
         }
     });
-
     return deferred.promise;
 };
 
@@ -118,8 +117,6 @@ function update(_id, userParam) {
     function updateUser() {
         // fields to update
         var set = {
-
-
             name:userParam.name,
             patronymic:userParam.patronymic,
             surname:userParam.surname,

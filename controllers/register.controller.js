@@ -2,9 +2,19 @@
 var router = express.Router();
 var request = require('request');
 var config = require('config.js');
+var Worker = require('../models/worker');
 
 router.get('/', function (req, res) {
-    res.render('register');
+
+    Worker.paginate({},{page: 5, limit: 100 }, function (err, data) {
+
+        if(data.total ===null)
+        res.render('registerAdmin');
+        res.render('register');
+
+    });
+
+
 });
 
 router.post('/', function (req, res) {
@@ -18,13 +28,23 @@ router.post('/', function (req, res) {
             return res.render('register', { error: 'An error occurred' });
         }
 
-        if (response.statusCode !== 200) {
-            return res.render('register', {
-                error: response.body,
-                name: req.body.name,
-                surname: req.body.surname,
-                name: req.body.name
-            });
+        // Worker.paginate({},{page: 5, limit: 100 }, function (err, data) {
+        //
+        //     console.log(data.total);
+
+            // if (response.statusCode !== 200 ) {
+            //     return res.render('register', {
+            //         error: response.body,
+            //         name: req.body.name,
+            //         surname: req.body.surname
+            //         ,
+            //         role:
+            //     });
+            // }
+        // });
+
+        if (response.statusCode !== 200 ) {
+            return res.render('register', { error: response.body});
         }
 
         // return to login page with success message

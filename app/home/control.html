@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="  navbar-brand" href="#/"><b>Список</b></a>
+            <a class="  navbar-brand" href="#/"><b>Список сотрудников</b></a>
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="searchWord" placeholder="Search">
             </div>
@@ -18,12 +18,6 @@
         <div class="navbar-collapse collapse navbar-inverse-collapse">
 
             <div class="nav navbar-nav navbar-right">
-
-                <!--Angular add modal-->
-                <button type="button" class="btn btn-raised btn-primary" ng-click="workCtrl.openAdd()">Добавить
-                    сотрудника
-                </button>
-                <!--/Angular add modal-->
 
             </div>
         </div>
@@ -50,7 +44,6 @@
                         <th>Телефон</th>
                         <th>Рабочее время</th>
                         <th>Логин</th>
-                        <th>Изменить</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -65,15 +58,7 @@
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
                         <td>{{worker.username}}</td>
-                        <td>
 
-                            <button type="button" class="btn btn-raised btn-primary"
-                                    ng-click="workCtrl.openEdit(worker)">edit
-                            </button>
-
-                            <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
-
-                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -403,12 +388,9 @@
                                                        bs-timepicker
                                                        data-time-format="HH:mm" data-time-type="string" data-length="1"
                                                        data-minute-step="15" data-arrow-behavior="picker">
-
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </fieldset>
                             </form>
                         </div>

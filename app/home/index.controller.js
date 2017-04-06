@@ -77,8 +77,6 @@
             $scope.currentPage = response.page;
             $scope.workers = response.docs;
             $scope.itemsPerPage = response.limit;
-
-
         });
     };
     $scope.setItemsPerPage = function(num) {
