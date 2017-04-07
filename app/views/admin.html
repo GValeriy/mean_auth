@@ -1,86 +1,74 @@
-﻿﻿﻿<div class="navbar navbar-inverse" id="nav">
+﻿<div class="navbar navbar-inverse" id="nav">
     <div class="container">
         <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <a class="  navbar-brand" href="#/"><b>Список сотрудников</b></a>
+            <a class=" navbar-brand globalText" href="#"><b>List of workers</b></a>
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="searchWord" placeholder="Search">
             </div>
 
         </div>
 
-        <div class="navbar-collapse collapse navbar-inverse-collapse">
+        <div class="nav navbar-nav navbar-right ">
+            <!--Angular add modal button-->
+            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="workCtrl.openAdd()">Add worker
+            </button>
 
-            <div class="nav navbar-nav navbar-right">
-
-                <!--Angular add modal-->
-                <button type="button" class="btn btn-raised btn-primary addButton" ng-click="workCtrl.openAdd()">Добавить
-                    сотрудника
-                </button>
-                <!--/Angular add modal-->
-
-            </div>
         </div>
     </div>
+
 </div>
 </div>
-
-
-<!--Список сотрудников-->
+<!--List of workers-->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="panel">
 
-                <table class="table table-striped" id="example" class="table table-striped table-bordered">
+                <table class="table  table-striped" id="example" class="table table-striped table-bordered">
+
                     <thead>
-                    <tr>
-                        <th>Имя</th>
-                        <th>Отчество</th>
-                        <th>Фамилия</th>
-                        <th>Должность</th>
-                        <th>Пол</th>
-                        <th>Роль</th>
-                        <th>Телефон</th>
-                        <th>Рабочее время</th>
-                        <th>Логин</th>
-                        <th>Изменить</th>
+                    <tr class="firstRow">
+                        <th class="globalText">Name</th>
+                        <th class="globalText">Patronymic</th>
+                        <th class="globalText">Surname</th>
+                        <th class="globalText">Post</th>
+                        <th class="globalText">Gender</th>
+                        <th class="globalText">Tel. number</th>
+                        <th class="globalText">Working hours</th>
+                        <th class="globalText">Update/ delete</th>
                     </tr>
                     </thead>
+
                     <tbody>
-                    <tr ng-repeat="worker in workers | filter: searchWord">
+                    <tr class="globalText" ng-repeat="worker in workers | filter: searchWord">
 
                         <td>{{worker.name}}</td>
                         <td>{{worker.patronymic}}</td>
                         <td>{{worker.surname}}</td>
                         <td>{{worker.post}}</td>
                         <td>{{worker.sex}}</td>
-                        <td>{{worker.role}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
-                        <td>{{worker.username}}</td>
                         <td>
-                            <button type="button" class="btn btn-raised btn-primary"
-                                    ng-click="workCtrl.openEdit(worker)">edit
+                            <button type="button" class="btn btn-raised buttons btn-primary"
+                                    ng-click="workCtrl.openEdit(worker)">Update
                             </button>
-                            <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
 
+                            <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
                         </td>
+
                     </tr>
                     </tbody>
                 </table>
                 <!--Pagination-->
                 <div class="row">
+
                     <div class="col-md-6">
                         <ul uib-pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
                             ng-change="pageChanged()"></ul>
                     </div>
+
+                    <!--Setting items per page-->
                     <div class="col-md-6 ">
                         <div class="setItems">
                             Show <select ng-init="viewby = '3'" ng-model="viewby" ng-change="setItemsPerPage(viewby)">
@@ -95,7 +83,7 @@
                             records at a time.
                         </div>
                     </div>
-                    <!--/pagination-->
+
                 </div>
             </div>
         </div>
@@ -105,7 +93,7 @@
     <script type="text/ng-template" id="editContent.html">
 
         <div class="modal-header">
-            <h3 class="modal-title" id="editmodal-title">Редактировать сотрудника</h3>
+            <h3 class="modal-title globalText modalText" id="editmodal-title">update worker`s information</h3>
         </div>
         <div class="modal-body" id="editmodal-body">
             <div class="panel panel-success">
@@ -115,51 +103,51 @@
                             <form class="form-horizontal" id="editangform" novalidate>
                                 <fieldset>
                                     <form name="userForm">
+
                                         <div class="form-group"
                                              ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">
-                                            <label for="angEditInput1" class="col-md-2 control-label">Имя</label>
+                                            <label for="angEditInput1" class="col-md-2 control-label">Name</label>
 
                                             <div class="col-md-10">
                                                 <input type="text" class="form-control" id="angEditInput1"
-                                                       ng-model="worker.name" placeholder="Имя" required>
-
+                                                       ng-model="worker.name" placeholder="Name" required>
                                             </div>
                                         </div>
+
                                     </form>
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.patronymic, 'has-success': worker.patronymic  }">
-                                        <label for="angEditInput2" class="col-md-2 control-label">Отчество</label>
+                                        <label for="angEditInput2" class="col-md-2 control-label">Patronymic</label>
 
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" id="angEditInput2"
-                                                   ng-model="worker.patronymic" placeholder="Отчество" required>
+                                                   ng-model="worker.patronymic" placeholder="Patronymic" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.surname, 'has-success': worker.surname  }">
-                                        <label for="angEditInput3" class="col-md-2 control-label">Фамилия</label>
+                                        <label for="angEditInput3" class="col-md-2 control-label">Surname</label>
 
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" id="angEditInput3"
-                                                   ng-model="worker.surname" placeholder="Фамилия" required>
+                                                   ng-model="worker.surname" placeholder="Surname" required>
 
                                         </div>
                                     </div>
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
-                                        <label for="angEditInput4" class="col-md-2 control-label">Должность</label>
-
+                                        <label for="angEditInput4" class="col-md-2 control-label">Post</label>
 
                                         <div class="col-md-10">
-                                            <select id="angEditInput4"
+                                            <select id="angEditInput4" ng-init="worker.post='Programmer'"
                                                     ng-model="worker.post" class="form-control">
-                                                <option>Программист</option>
-                                                <option>Дизайнер</option>
-                                                <option>Менеджер</option>
-                                                <option>Персонал</option>
-                                                <option>Обучающийся</option>
+                                                <option>Programmer</option>
+                                                <option>Designer</option>
+                                                <option>Manager</option>
+                                                <option>Staff</option>
+                                                <option>Student</option>
                                             </select>
                                         </div>
                                     </div>
@@ -167,34 +155,21 @@
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
 
-                                        <label class="col-md-2 control-label">Пол</label>
+                                        <label class="col-md-2 control-label">Gender</label>
 
                                         <div class="col-md-5 modalInput">
-
-                                            <input  type="radio" name="answer" value="ж." ng-model="worker.sex"/>женский
+                                            <input type="radio" name="answer" value="female" ng-model="worker.sex"/>Female
                                         </div>
+
                                         <div class="col-md-5 modalInput">
-                                            <input  type="radio" name="answer" value="м." ng-model="worker.sex"/>мужской
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group"
-                                         ng-class="{ 'has-error': !worker.role, 'has-success': worker.role  }">
-                                        <label class="col-md-2 control-label">Роль</label>
-
-                                        <div class="col-md-10">
-                                            <select ng-model="worker.role" class="form-control">
-                                                <option>Администратор</option>
-                                                <option>Руководитель</option>
-                                                <option>Пользователь</option>
-                                            </select>
+                                            <input type="radio" name="answer" value="male" ng-model="worker.sex"/>Male
                                         </div>
                                     </div>
 
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
-                                        <label class="col-md-2 control-label">Телефон</label>
+                                        <label class="col-md-2 control-label">Phone number</label>
 
                                         <div class="col-md-10">
 
@@ -207,8 +182,7 @@
                                         <div class="form-group"
                                              ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start}">
 
-                                            <label class="col-md-4 control-label">Начало дня</label>
-
+                                            <label class="col-md-4 control-label">Start of workday</label>
 
                                             <div class="col-md-8 modalInput">
 
@@ -216,50 +190,32 @@
                                                        ng-model="worker.work_start" bs-timepicker
                                                        data-time-format="HH:mm" data-time-type="string" data-length="1"
                                                        data-minute-step="1" data-arrow-behavior="picker">
-
-
                                             </div>
                                         </div>
-
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group"
                                              ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop}">
 
-                                            <label class="col-md-4 control-label">Конец дня</label>
+                                            <label class="col-md-4 control-label">End of workday</label>
 
                                             <div class="col-md-8 modalInput">
 
-                                                <input type="text" class="form-control" size="8" ng-model="worker.work_stop"
+                                                <input type="text" class="form-control" size="8"
+                                                       ng-model="worker.work_stop"
                                                        bs-timepicker
                                                        data-time-format="HH:mm" data-time-type="string" data-length="1"
                                                        data-minute-step="1" data-arrow-behavior="picker">
-
                                             </div>
                                         </div>
-
                                     </div>
-
-                                    <form name="userForm">
-                                        <div class="form-group"
-                                             ng-class="{ 'has-error': !worker.username, 'has-success': worker.username  }">
-                                            <label for="angEditInput1" class="col-md-2 control-label">Имя</label>
-
-                                            <div class="col-md-10">
-                                                <input type="text" class="form-control"
-                                                       ng-model="worker.username" placeholder="username" required>
-
-                                            </div>
-                                        </div>
-                                    </form>
-
                                 </fieldset>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="modal-footer">
@@ -269,12 +225,12 @@
 
         </div>
     </script>
-    <!--/angular edit modal window-->
+
 
     <!--Angular add modal window-->
     <script type="text/ng-template" id="myModalContent.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Добавить сотрудника</h3>
+            <h3 class="modal-title globalText modalText" id="modal-title ">add worker</h3>
         </div>
         <div class="modal-body" id="modal-body">
             <div class="panel panel-success">
@@ -288,11 +244,11 @@
                                     <form name="userForm">
                                         <div class="form-group"
                                              ng-class="{ 'has-error': !worker.name, 'has-success': worker.name  }">
-                                            <label for="angAddInput1" class="col-md-2 control-label">Имя</label>
+                                            <label class="col-md-2 control-label">Name</label>
 
                                             <div class="col-md-10">
-                                                <input type="text" class="form-control" id="angAddInput1"
-                                                       ng-model="worker.name" placeholder="Имя" required>
+                                                <input type="text" class="form-control" ng-model="worker.name"
+                                                       placeholder="Name" required>
 
                                             </div>
                                         </div>
@@ -300,36 +256,36 @@
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.patronymic, 'has-success': worker.patronymic  }">
-                                        <label for="angAddInput2" class="col-md-2 control-label">Отчество</label>
+                                        <label class="col-md-2 control-label">Patronymic</label>
 
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="angAddInput2"
-                                                   ng-model="worker.patronymic" placeholder="Отчество" required>
+                                            <input type="text" class="form-control" ng-model="worker.patronymic"
+                                                   placeholder="Patronymic" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.surname, 'has-success': worker.surname  }">
-                                        <label for="angAddInput3" class="col-md-2 control-label">Фамилия</label>
+                                        <label class="col-md-2 control-label">Surname</label>
 
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control" id="angAddInput3"
-                                                   ng-model="worker.surname" placeholder="Фамилия" required>
+                                            <input type="text" class="form-control" ng-model="worker.surname"
+                                                   placeholder="Surname" required>
 
                                         </div>
                                     </div>
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
-                                        <label for="angAddInput4" class="col-md-2 control-label">Должность</label>
+                                        <label for="angAddInput4" class="col-md-2 control-label">Post</label>
 
                                         <div class="col-md-10">
-                                            <select id="angAddInput4" ng-init="worker.post='Программист'"
+                                            <select id="angAddInput4" ng-init="worker.post='Programmer'"
                                                     ng-model="worker.post" class="form-control">
-                                                <option>Программист</option>
-                                                <option>Дизайнер</option>
-                                                <option>Менеджер</option>
-                                                <option>Персонал</option>
-                                                <option>Обучающийся</option>
+                                                <option>Programmer</option>
+                                                <option>Designer</option>
+                                                <option>Manager</option>
+                                                <option>Staff</option>
+                                                <option>Student</option>
                                             </select>
                                         </div>
                                     </div>
@@ -337,34 +293,21 @@
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
 
-                                        <label class="col-md-2 control-label">Пол</label>
+                                        <label class="col-md-2 control-label">Gender</label>
 
                                         <div class="col-md-5 modalInput">
 
-                                            <input type="radio" name="answer" value="ж." ng-model="worker.sex"/>женский
+                                            <input type="radio" name="answer" value="female" ng-model="worker.sex"/>female
                                         </div>
                                         <div class="col-md-5 modalInput">
-                                            <input type="radio" name="answer" value="м." ng-model="worker.sex"/>мужской
+                                            <input type="radio" name="answer" value="male" ng-model="worker.sex"/>male
 
-                                        </div>
-                                    </div>
-                                    <div class="form-group"
-                                         ng-class="{ 'has-error': !worker.role, 'has-success': worker.role  }">
-                                        <label class="col-md-2 control-label">Роль</label>
-
-                                        <div class="col-md-10">
-                                            <select  ng-init="worker.role='Пользователь'"
-                                                     ng-model="worker.role" class="form-control">
-                                                <option>Администратор</option>
-                                                <option>Руководитель</option>
-                                                <option>Пользователь</option>
-                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.phone, 'has-success': worker.phone  }">
-                                        <label class="col-md-2 control-label">Телефон</label>
+                                        <label class="col-md-2 control-label">Phone number</label>
 
                                         <div class="col-md-10 modalInput">
 
@@ -376,7 +319,7 @@
                                         <div class="form-group"
                                              ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start}">
 
-                                            <label class="col-md-4 control-label">Начало дня</label>
+                                            <label class="col-md-4 control-label">Start of workday</label>
 
                                             <div class="col-md-8">
 
@@ -393,11 +336,12 @@
                                         <div class="form-group"
                                              ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop}">
 
-                                            <label class="col-md-4 control-label">Конец дня</label>
+                                            <label class="col-md-4 control-label">End of workday</label>
 
                                             <div class="col-md-8 modalInput">
 
-                                                <input type="text" class="form-control" size="8" ng-model="worker.work_stop"
+                                                <input type="text" class="form-control" size="8"
+                                                       ng-model="worker.work_stop"
                                                        bs-timepicker
                                                        data-time-format="HH:mm" data-time-type="string" data-length="1"
                                                        data-minute-step="15" data-arrow-behavior="picker">
@@ -406,7 +350,6 @@
                                         </div>
 
                                     </div>
-
 
                                 </fieldset>
                             </form>
@@ -424,6 +367,5 @@
 
         </div>
     </script>
-
 
 </div>

@@ -1,13 +1,15 @@
 ﻿﻿body {
     padding: 20px 0;
+    background-color: #edeae1;
 }
 
 .flash-message {
     margin-top: 20px;
 }
 #nav{
+
     color: black;
-    background-color: white;
+    background-color: #e7e3d6;
     box-shadow: 0 16px 10px -12px rgba(0,0,0,0.3);
     border: 0;
 }
@@ -30,6 +32,51 @@
 
 }
 .addButton {
-    margin: 20px;
+    margin: 37px;
 
 }
+
+.setItems {
+    margin: 20px 45px;
+    float: right;
+}
+
+.modalInput {
+    margin: 16px 0 0 0;
+}
+.globalText {
+    text-align: center;
+
+    font-family: 'Lato', 'Arial', sans-serif;
+}
+.modalText {
+    text-transform: uppercase;
+    padding-top: 20px;
+}
+.btn.btn-raised.btn-primary
+{
+    background-color: #dad4c1;
+    color: #000;
+}
+.btn.btn-raised:not(.btn-link):hover.btn-primary
+{
+    background-color: #d4cdb6;
+}
+
+.firstRow
+{
+    background-color:#dad4c1;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
+.pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+{
+    background-color: #d4cdb6;
+    border-color: #c7bea1;
+    color:black;
+}
+
+.pagination>li>a, .pagination>li>a:hover
+{
+    color: black;
+}
+
