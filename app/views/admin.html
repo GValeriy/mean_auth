@@ -35,6 +35,7 @@
                         <th class="globalText">Gender</th>
                         <th class="globalText">Tel. number</th>
                         <th class="globalText">Working hours</th>
+                        <th class="globalText">Role</th>
                         <th class="globalText">Update/ delete</th>
                     </tr>
                     </thead>
@@ -49,6 +50,7 @@
                         <td>{{worker.sex}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
+                        <td>{{worker.role}}</td>
                         <td>
                             <button type="button" class="btn btn-raised buttons btn-primary"
                                     ng-click="workCtrl.openEdit(worker)">Update
@@ -175,6 +177,21 @@
 
                                             <input class="modalInput" type="text" ui-mask="+3(099) 999-99-99"
                                                    ng-model="worker.phone" model-view-value="true">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.role, 'has-success': worker.role  }">
+                                        <label for="angEditInput4" class="col-md-2 control-label">Role</label>
+
+                                        <div class="col-md-10">
+                                            <select
+                                                    ng-model="worker.role" class="form-control">
+                                                <option>Администратор</option>
+                                                <option>Руководитель</option>
+                                                <option>Пользователь</option>
+
+                                            </select>
                                         </div>
                                     </div>
 
@@ -313,6 +330,20 @@
 
                                             <input type="text" ui-mask="+3(099) 999-99-99"
                                                    ng-model="worker.phone" model-view-value="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.role, 'has-success': worker.role  }">
+                                        <label for="angEditInput4" class="col-md-2 control-label">Role</label>
+
+                                        <div class="col-md-10">
+                                            <select ng-init="worker.role='Пользователь'"
+                                                    ng-model="worker.role" class="form-control">
+                                                <option>Администратор</option>
+                                                <option>Руководитель</option>
+                                                <option>Пользователь</option>
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">

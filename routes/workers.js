@@ -9,7 +9,6 @@ router.get('/',function (req,res) {
 
     Worker.paginate({},{page: page, limit: limit }, function (err, data) {
         res.send(data);
-        console.log(data.total);
     });
 
 });

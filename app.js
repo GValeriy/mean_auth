@@ -21,16 +21,15 @@ app.use('/api', expressJwt({ secret: config.secret }).unless({ path: ['/api/user
 app.use(morgan('dev'));
 
 // routes
-app.use('/login', require('./controllers/login.controller'));
-app.use('/register', require('./controllers/register.controller'));
-app.use('/app', require('./controllers/app.controller'));
-app.use('/api/users', require('./controllers/api/users.controller'));
+app.use('/login', require('./routes/login.controller.js'));
+app.use('/register', require('./routes/register.controller.js'));
+app.use('/app', require('./routes/app.controller.js'));
+app.use('/api/users', require('./routes/users.controller.js'));
 app.use('/workers', require('./routes/workers'));
-app.use('/users', require('./routes/users'));
 
-// models
+
+// mongoose model
 var Worker = require('./models/worker');
-var User = require('./models/user');
 
 // connect to database
 mongoose.connect(config.connectionString);
