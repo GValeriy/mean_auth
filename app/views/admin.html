@@ -104,6 +104,7 @@
                         <div class="col-md-12">
                             <form class="form-horizontal" id="editangform" novalidate>
                                 <fieldset>
+
                                     <form name="userForm">
 
                                         <div class="form-group"
@@ -237,7 +238,7 @@
 
         <div class="modal-footer">
 
-            <button class="btn btn-primary" type="button" ng-click="$editCtrl.ok();updateWorker(worker._id)">OK</button>
+            <button class="btn btn-primary" type="button" ng-click="$editCtrl.ok(); saveUser()">OK</button>
             <button class="btn btn-warning" type="button" ng-click="$editCtrl.cancel()">Cancel</button>
 
         </div>
@@ -257,6 +258,25 @@
                             <form class="form-horizontal" id="angform" novalidate>
 
                                 <fieldset>
+
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.username, 'has-success': worker.username  }">
+                                        <label for="angEditInput2" class="col-md-2 control-label">Username</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control"
+                                                   ng-model="worker.username" placeholder="Username" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.password, 'has-success': worker.password  }">
+                                        <label for="angEditInput2" class="col-md-2 control-label">Password</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control"
+                                                   ng-model="worker.password" placeholder="Password" required>
+                                        </div>
+                                    </div>
 
                                     <form name="userForm">
                                         <div class="form-group"

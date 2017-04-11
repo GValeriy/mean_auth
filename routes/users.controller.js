@@ -53,11 +53,7 @@ function getCurrentUser(req, res) {
 };
 
 function updateUser(req, res) {
-    var userId = req.user.sub;
-    if (req.params._id !== userId) {
-        // can only update own account
-        return res.status(401).send('You can only update your own account');
-    }
+    var userId = req.params._id;
 
     userService.update(userId, req.body)
         .then(function () {
@@ -69,11 +65,8 @@ function updateUser(req, res) {
 };
 
 function deleteUser(req, res) {
-    var userId = req.user.sub;
-    if (req.params._id !== userId) {
-        // can only delete own account
-        return res.status(401).send('You can only delete your own account');
-    };
+
+    var userId = req.params._id;
 
     userService.delete(userId)
         .then(function () {

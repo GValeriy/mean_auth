@@ -36,7 +36,6 @@ function authenticate(username, password) {
 
 function getById(_id) {
     var deferred = Q.defer();
-
     db.workers.findById(_id, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -48,27 +47,24 @@ function getById(_id) {
             deferred.resolve();
         }
     });
-
     return deferred.promise;
 };
 
 function create(userParam) {
     var deferred = Q.defer();
-
     // validation
-    db.workers.findOne(
-        { username: userParam.username },
-        function (err, user) {
-            if (err) deferred.reject(err.name + ': ' + err.message);
-
-            if (user) {
-                // username already exists
-                deferred.reject('Username "' + userParam.username + '" is already taken');
-            } else {
-                createUser();
-            }
-        });
-
+    // db.workers.findOne(
+    //     { username: userParam.username },
+    //     function (err, user) {
+    //         if (err) deferred.reject(err.name + ': ' + err.message);
+    //         if (user) {
+    //             // username already exists
+    //             deferred.reject('Username "' + userParam.username + '" is already taken');
+    //         } else {
+    //             createUser();
+    //         }
+    //     });
+    createUser();
     function createUser() {
         // set user object to userParam without the cleartext password
         var user = _.omit(userParam, 'password');
@@ -140,7 +136,6 @@ function update(_id, userParam) {
             { $set: set },
             function (err, doc) {
                 if (err) deferred.reject(err.name + ': ' + err.message);
-
                 deferred.resolve();
             });
     };

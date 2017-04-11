@@ -3,7 +3,7 @@
 
 angular.module('app').factory('crudService', crudService);
 
-function crudService($http) {
+function crudService($http, $q) {
 
     var service = {};
 
