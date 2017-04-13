@@ -9,6 +9,7 @@ function crudService($http, $q) {
 
     service.getWorker = getWorker;
     service.addWorker = addWorker;
+    service.updateWorker = updateWorker;
     service.getWorkers = getWorkers;
     service.removeWorker = removeWorker;
     service.GetCurrent = GetCurrent;
@@ -27,6 +28,10 @@ function crudService($http, $q) {
 
     function addWorker (worker) {
         return $http.post('/workers/', worker);
+    };
+
+    function updateWorker (worker) {
+        return $http.put('/workers/'+worker._id, worker);
     };
 
     function getWorkers (page, limit) {

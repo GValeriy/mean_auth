@@ -104,7 +104,6 @@
                                     <input type="password" id="password" class="form-control" ng-model="workCtrl.worker.password" />
                                 </div>
 
-
                         </form>
                     </div>
                 </div>
@@ -113,7 +112,7 @@
 
         <div class="form-group">
             <button class="btn btn-primary" ng-click="workCtrl.saveUser()">Save</button>
-            <button class="btn btn-danger" ng-click="removeWorker(worker._id)">Delete</button>
+            <button class="btn btn-danger" ng-click="workCtrl.deleteUser()">Delete</button>
         </div>
     </form>
 </div>
