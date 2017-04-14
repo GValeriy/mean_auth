@@ -7,19 +7,15 @@ var bcrypt = require('bcryptjs');
 var Q = require('q');
 var mongo = require('mongoskin');
 var Schema = mongoose.Schema;
-//Workers Schema
+
+// *******   Worker`s schema   ******* //
 
 var workerSchema = Schema({
-    name:{
-        type: String
-    },
+
     patronymic:{
         type: String
     },
     post:{
-        type: String
-    },
-    surname:{
         type: String
     },
     sex:{
@@ -37,22 +33,22 @@ var workerSchema = Schema({
     role:{
         type: String
     },
-    creator:
-            { type: Number, ref: 'User' }
-
-    // username:{
-    //     type: String
-    // },
-    // hash:{
-    //     type: String
-    // }
+    user:
+        { type: Number, ref: 'User' }
+    ,
+    username:{
+    type: String
+    }
+    ,
+    _id:
+        {
+            type: Number
+        }
 });
 
-// Users Schema
+// *******   User`s schema   ******* //
+
 var userSchema = Schema({
-    _id:{
-        type: Number
-    },
     name:{
         type: String
     },
@@ -68,69 +64,42 @@ var userSchema = Schema({
     hash:{
         type: String
     }
+    ,
+    userInfo : { type: Number, ref: 'Worker' }
 
 });
-//
-// var userSchema = Schema({
-//     _id     : Number,
-//     name: String,
-//     surname:String,
-//     role:String,
-//     username:String,
-//     hash: String
-//
-// });
 
-var personSchema = Schema({
-    _id     : Number,
-    name    : String,
-    age     : Number,
-    stories : [{ type: Schema.Types.ObjectId, ref: 'Story' }]
-});
-
-var storySchema = Schema({
-    creator : { type: Number, ref: 'Person' },
-    title    : String,
-    fans     : [{ type: Number, ref: 'Person' }]
-});
-
-var Story  = mongoose.model('Story', storySchema);
+workerSchema.plugin(mongoosePaginate);
 var Worker = module.exports = mongoose.model('Worker', workerSchema);
 var User = module.exports = mongoose.model('User', userSchema);
-var Person = mongoose.model('Person', personSchema);
 
-var aaron = new User({ _id:0, name: 'Aaron',surname:"Paul", username: '22', password: "admin" });
+module.exports.paginate = Worker.paginate;
 
-// aaron.save(function (err) {
+// var worker1 = new Worker({ _id:1, patronymic:'Anatolievich', post:'Programyst',sex:'male' });
+// worker1.save(function (err) {
 //     if (err) return handleError(err);
-
-    var worker1 = new Worker({
-        surname: "Once upon a timex.",
-        _creator: aaron._id    // assign the _id from the person
-    });
-
-    worker1.save(function (err) {
-        if (err) return handleError(err);
-        // thats it!
-    });
-
-
+// });
+// var user1 = new User({
+//     name: 'Aaron',
+//     surname: 'Paul',
+//     username: 'AaPPaul',
+//     role:'admin',
+//     userInfo:worker1._id });
+// user1.save (function (err) {
+//     if (err) return handleError(err);
+// });
 
 // User
-//     .findOne({ username: '0' })
-//     .populate('_creator')
-//     .exec(function (err, story) {
+//     .findOne({ userInfo: worker1._id  })
+//     .populate('userInfo')
+//     .exec(function (err, user) {
 //         if (err) return handleError(err);
-//         console.log('The creator is ', story._creator.name, story._creator.age);
+//         console.log('The creator is ', user.userInfo.patronymic);
 //         // prints "The creator is Aaron"
 //     });
 
 
-workerSchema.plugin(mongoosePaginate);
-
-
-
-module.exports.paginate = Worker.paginate;
+// *******   CRUD Worker   ******* //
 
 //GET workers
 module.exports.getWorkers = function(callback, limit) {
@@ -151,17 +120,12 @@ module.exports.addWorker = function(worker, callback) {
 module.exports.updateWorker = function (id, worker, options, callback) {
     var query = {_id: id};
     var update = {
-        name:worker.name,
         patronymic:worker.patronymic,
         post:worker.post,
-        surname:worker.surname,
         sex:worker.sex,
         phone:worker.phone,
         work_start:worker.work_start,
         work_stop:worker.work_stop
-        // ,
-        // role:worker.role,
-        // username:worker.username
     };
     Worker.findOneAndUpdate(query, update, options, callback);
 };
@@ -171,6 +135,8 @@ module.exports.removeWorker = function(id,callback) {
     var query = {_id: id};
     Worker.remove(query, callback);
 };
+
+// *******   CRUD User   ******* //
 
 //GET user
 module.exports.getUserById = function (_id) {
@@ -189,15 +155,46 @@ module.exports.getUserById = function (_id) {
     });
 
     return deferred.promise;
-}
+};
 
 // ADD user
-module.exports.addUser = function(userParam, callback) {
-    var user = _.omit(userParam, 'password');
-    user.hash = bcrypt.hashSync(userParam.password, 10);
-    User.create(user, callback);
+module.exports.addUser = function(userParam) {
+    var deferred = Q.defer();
 
+    // validation
+    User.findOne(
+        { username: userParam.username },
+        function (err, user) {
+            if (err) deferred.reject(err);
+
+            if (user) {
+                // username already exists
+                deferred.reject('Username "' + userParam.username + '" is already taken');
+            } else {
+                createUser();
+            }
+        });
+
+    function createUser() {
+        // set user object to userParam without the cleartext password
+        var user = _.omit(userParam, 'password');
+
+        // add hashed password to user object
+        user.hash = bcrypt.hashSync(userParam.password, 10);
+
+        User.create(
+            user,
+            function (err, doc) {
+                if (err) deferred.reject(err);
+
+                deferred.resolve();
+            });
+    }
+
+    return deferred.promise;
 };
+
+// UPDATE user
 module.exports.updateUser = function (_id, userParam) {
     var deferred = Q.defer();
     // VALIDATION
@@ -228,7 +225,9 @@ module.exports.updateUser = function (_id, userParam) {
             name:userParam.name,
             surname:userParam.surname,
             username:userParam.username,
-            role:userParam.role
+            role:userParam.role,
+            userInfo: userParam.userInfo
+
         };
 
         // update password if it was entered
@@ -244,7 +243,7 @@ module.exports.updateUser = function (_id, userParam) {
 
                 deferred.resolve();
             });
-    }
+    };
     return deferred.promise;
 };
 
@@ -256,11 +255,11 @@ module.exports._delete = function (_id, callback) {
 
 // AUTH user
 module.exports.authenticate = function (username, password) {
-
     var deferred = Q.defer();
 
     User.findOne({ username: username }, function (err, user) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
+        if (err) deferred.reject(err);
+
         if (user && bcrypt.compareSync(password, user.hash)) {
             // authentication successful
             deferred.resolve(jwt.sign({ sub: user._id }, config.secret));
@@ -269,5 +268,6 @@ module.exports.authenticate = function (username, password) {
             deferred.resolve();
         }
     });
+
     return deferred.promise;
 };

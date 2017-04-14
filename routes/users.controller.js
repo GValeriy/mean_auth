@@ -29,16 +29,14 @@ function authenticateUser(req, res) {
 };
 
 function registerUser(req, res) {
-    var user = req.body;
-    User.addUser(user, function (err, user) {
-        if(err){
-            // throw err;
+    User.addUser(req.body)
+        .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
             res.status(400).send(err);
-        }
-        res.json(user);
-    })
-};
-
+        });
+}
 
 function getCurrentUser(req, res) {
     User.getUserById(req.user.sub)
