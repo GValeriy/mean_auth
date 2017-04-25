@@ -2,47 +2,40 @@
     padding: 20px 0;
     background-color: #edeae1;
 }
-
 .flash-message {
     margin-top: 20px;
 }
 #nav{
-
     color: black;
     background-color: #e7e3d6;
     box-shadow: 0 16px 10px -12px rgba(0,0,0,0.3);
     border: 0;
 }
-
 .setItems {
     margin: 20px 20px;
     float: right;
 }
-
 .modalInput {
     margin: 16px 0 0 0;
-
 }
 .worktime {
-
     padding-left:0px;
 }
 .menu {
     text-transform: uppercase ;
-
 }
 .addButton {
     margin: 37px;
-
 }
-
 .setItems {
     margin: 20px 45px;
     float: right;
 }
-
 .modalInput {
     margin: 16px 0 0 0;
+}
+.userModalInput {
+    margin: 16px 0 10px 0;
 }
 .globalText {
     text-align: center;
@@ -74,7 +67,6 @@
 .firstRow
 {
     background-color:#dad4c1;
-
 }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
 .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
@@ -93,7 +85,6 @@
     color:black !important;
 }
 .form-group {
-
     margin:  0;
 }
 .btn:not(.btn-raised).btn-primary, .input-group-btn .btn:not(.btn-raised).btn-primary

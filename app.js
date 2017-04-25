@@ -25,11 +25,6 @@ app.use('/login', require('./routes/login.controller.js'));
 app.use('/register', require('./routes/register.controller.js'));
 app.use('/app', require('./routes/app.controller.js'));
 app.use('/api/users', require('./routes/users.controller.js'));
-app.use('/workers', require('./routes/workers'));
-
-
-// mongoose model
-var Worker = require('./models/worker');
 
 // connect to database
 mongoose.connect(config.connectionString);

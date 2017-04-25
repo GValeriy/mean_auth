@@ -1,7 +1,7 @@
 ﻿var config = require('config.js');
 var express = require('express');
 var router = express.Router();
-var User = require('../models/worker');
+var User = require('../models/user');
 
 // routes
 router.post('/authenticate', authenticateUser);
@@ -9,8 +9,19 @@ router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
+router.get('/', getAll);
 
 module.exports = router;
+
+function getAll (req,res) {
+
+    var page = +req.query['page'];
+    var limit = +req.query['limit'];
+
+    User.paginate({},{page: page, limit: limit }, function (err, data) {
+        res.send(data);
+    });
+};
 
 function authenticateUser(req, res) {
     User.authenticate(req.body.username, req.body.password)
@@ -36,7 +47,7 @@ function registerUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 function getCurrentUser(req, res) {
     User.getUserById(req.user.sub)
@@ -52,14 +63,9 @@ function getCurrentUser(req, res) {
         });
 };
 
-
 function updateUser(req, res) {
-    var userId = req.user.sub;
-    if (req.params._id !== userId) {
-        // can only update own account
-        return res.status(401).send('You can only update your own account');
-    };
-    User.updateUser(userId, req.body)
+
+    User.updateUser(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -69,7 +75,6 @@ function updateUser(req, res) {
 };
 
 function deleteUser(req, res) {
-
     var id = req.params._id;
     User._delete(id, function (err, user) {
         if(err){

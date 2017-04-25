@@ -46,29 +46,29 @@
 
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
 
-        // $rootScope.$on('$stateChangeSuccess', function(e, to) {
-        //
-        //     crudService.GetCurrent().then(function (user) {
-        //
-        //         var auth = user.role;
-        //
-        //         if (to.data.role !=='admin' && auth === 'Администратор' ) {
-        //             e.preventDefault();
-        //             alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
-        //             $state.go('home');
-        //         }
-        //             if (to.data.role !== 'user' && auth === 'Пользователь' || auth === undefined) {
-        //                 e.preventDefault();
-        //                 alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
-        //                 $state.go('account');
-        //             }
-        //             if (to.data.role !== 'control' && auth === 'Руководитель') {
-        //                 e.preventDefault();
-        //                 alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
-        //                 $state.go('control');
-        //             }
-        //     });
-        // });
+        $rootScope.$on('$stateChangeSuccess', function(e, to) {
+
+            crudService.GetCurrent().then(function (user) {
+
+                var auth = user.role;
+
+                if (to.data.role !=='admin' && auth === 'Администратор' ) {
+                    e.preventDefault();
+                    alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
+                    $state.go('home');
+                }
+                    if (to.data.role !== 'user' && auth === 'Пользователь' || auth === undefined) {
+                        e.preventDefault();
+                        alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
+                        $state.go('account');
+                    }
+                    if (to.data.role !== 'control' && auth === 'Руководитель') {
+                        e.preventDefault();
+                        alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
+                        $state.go('control');
+                    }
+            });
+        });
 
     };
 

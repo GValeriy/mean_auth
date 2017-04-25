@@ -19,7 +19,6 @@
             $rootScope.$on('$locationChangeStart', function () {
                 clearFlashMessage();
             });
-
             function clearFlashMessage() {
                 var flash = $rootScope.flash;
                 if (flash) {
@@ -31,23 +30,21 @@
                     }
                 }
             }
-        }
-
+        };
         function Success(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'success', 
                 keepAfterLocationChange: keepAfterLocationChange
             };
-        }
-
+        };
         function Error(message, keepAfterLocationChange) {
             $rootScope.flash = {
                 message: message,
                 type: 'danger',
                 keepAfterLocationChange: keepAfterLocationChange
             };
-        }
-    }
+        };
+    };
 
 })();

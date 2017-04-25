@@ -3,13 +3,9 @@ var app=angular.module('app');
 app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, crudService) {
 
     $scope.addWorker = function () {
-        crudService.addWorker($scope.worker).success(function (response) {
+        crudService.Create($scope.worker).then(function (response) {
         });
     };
-    // $scope.addWorker = function () {
-    //     crudService.Create($scope.worker).then(function (response) {
-    //     });
-    // };
 
     this.ok = function () {
         $uibModalInstance.close('OK');
@@ -26,22 +22,13 @@ app.controller('ModalEditCtrl', function ($scope,$uibModalInstance,crudService,F
     $scope.worker= worker;
 
     $scope.saveUser = function () {
-        crudService.updateWorker($scope.worker).then(function () {
+        crudService.Update($scope.worker).then(function () {
             FlashService.Success('User updated');
         })
             .catch(function (error) {
                 FlashService.Error(error);
             });
     };
-
-    // $scope.saveUser = function () {
-    //     crudService.Update($scope.worker).then(function () {
-    //         FlashService.Success('User updated');
-    //     })
-    //         .catch(function (error) {
-    //             FlashService.Error(error);
-    //         });
-    // };
 
     this.ok = function () {
         $uibModalInstance.close('OK');
