@@ -39,6 +39,24 @@
                     role: 'control'
                 }
             })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'views/login.html',
+                controller: 'loginController',
+                controllerAs: 'logCtrl',
+                data: {
+                    role: 'admin'
+                }
+            })
+            .state('register', {
+                url: '/register',
+                templateUrl: 'views/registration.html',
+                controller: 'registerController',
+                controllerAs: 'regCtrl',
+                data: {
+                    role: 'admin'
+                }
+            })
     };
 
     function run($http, $rootScope,$state,  $window, crudService) {

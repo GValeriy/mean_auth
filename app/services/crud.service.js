@@ -12,6 +12,7 @@ function crudService($http, $q) {
     service.GetById = GetById;
     service.GetByUsername = GetByUsername;
     service.Create = Create;
+    service.Authenticate = Authenticate;
     service.Update = Update;
     service.Delete = Delete;
 
@@ -42,6 +43,9 @@ function crudService($http, $q) {
     };
     function Delete(_id) {
         return $http.delete('/api/users/' + _id).then(handleSuccess, handleError);
+    };
+    function Authenticate(user) {
+        return $http.post('/login', user).then(handleSuccess, handleError);
     };
     // private functions
     function handleSuccess(res) {

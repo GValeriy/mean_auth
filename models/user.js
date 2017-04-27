@@ -187,4 +187,3 @@ module.exports.authenticate = function (username, password) {
     });
     return deferred.promise;
 };
-

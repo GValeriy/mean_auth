@@ -24,6 +24,7 @@ function getAll (req,res) {
 };
 
 function authenticateUser(req, res) {
+
     User.authenticate(req.body.username, req.body.password)
         .then(function (token) {
             if (token) {
@@ -37,6 +38,7 @@ function authenticateUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
+
 };
 
 function registerUser(req, res) {
