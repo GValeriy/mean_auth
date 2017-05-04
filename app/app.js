@@ -1,8 +1,8 @@
 ﻿(function () {
     'use strict';
 
-        angular
-        .module('app', ['ui.router','ngAnimate','ui.bootstrap','ui.mask', 'mgcrea.ngStrap', 'ngSanitize'])
+    angular
+        .module('app', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ui.mask', 'mgcrea.ngStrap', 'ngSanitize'])
         .config(config)
         .run(run);
 
@@ -18,8 +18,8 @@
                 controller: 'workersController',
                 controllerAs: 'workCtrl',
                 data: {
-                role: 'admin'
-        }
+                    role: 'admin'
+                }
             })
             .state('account', {
                 url: '/account',
@@ -39,55 +39,37 @@
                     role: 'control'
                 }
             })
-            .state('login', {
-                url: '/login',
-                templateUrl: 'views/login.html',
-                controller: 'loginController',
-                controllerAs: 'logCtrl',
-                data: {
-                    role: 'admin'
-                }
-            })
-            .state('register', {
-                url: '/register',
-                templateUrl: 'views/registration.html',
-                controller: 'registerController',
-                controllerAs: 'regCtrl',
-                data: {
-                    role: 'admin'
-                }
-            })
+
     };
 
-    function run($http, $rootScope,$state,  $window, crudService) {
+    function run($http, $rootScope,$state, $window, crudService) {
         // add JWT token as default auth header
+
 
         $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
 
-        $rootScope.$on('$stateChangeSuccess', function(e, to) {
+    $rootScope.$on('$stateChangeSuccess', function(e, to) {
 
-            crudService.GetCurrent().then(function (user) {
-
-                var auth = user.role;
-
-                if (to.data.role !=='admin' && auth === 'Администратор' ) {
-                    e.preventDefault();
-                    alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
-                    $state.go('home');
-                }
-                    if (to.data.role !== 'user' && auth === 'Пользователь' || auth === undefined) {
-                        e.preventDefault();
-                        alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
-                        $state.go('account');
-                    }
-                    if (to.data.role !== 'control' && auth === 'Руководитель') {
-                        e.preventDefault();
-                        alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
-                        $state.go('control');
-                    }
-            });
+        crudService.GetCurrent().then(function (user) {
+            var auth = user.role;
+            console.log("asdasd",auth);
+            if (to.data.role !=='admin' && auth === 'Администратор' ) {
+                e.preventDefault();
+                alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
+                $state.go('home');
+            }
+            if (to.data.role !== 'user' && auth === 'Пользователь' || auth === undefined) {
+                e.preventDefault();
+                alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
+                $state.go('account');
+            }
+            if (to.data.role !== 'control' && auth === 'Руководитель') {
+                e.preventDefault();
+                alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
+                $state.go('control');
+            }
         });
-
+    });
     };
 
     // manually bootstrap angular after the JWT token is retrieved from the server
@@ -99,5 +81,5 @@
             angular.bootstrap(document, ['app']);
         });
     });
+    })();
 
-})();

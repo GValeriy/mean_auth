@@ -1,10 +1,14 @@
 var app=angular.module('app');
 
-app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, $http, crudService) {
+app.controller('ModalAddCtrl', function ($scope,$uibModalInstance, FlashService, $http, crudService) {
 
     $scope.addWorker = function () {
-        crudService.Create($scope.worker).then(function (response) {
-        });
+        crudService.Create($scope.worker).then(function () {
+            FlashService.Success('User registrated');
+        })
+            .catch(function (error) {
+                FlashService.Error(error);
+            });
     };
 
     this.ok = function () {

@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <title>MEAN Stack User Registration and Login Application</title>
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="lib/bootstrap-material-design.css">
     <link href="style/app.css" rel="stylesheet" />
 
 </head>
@@ -18,9 +18,6 @@
             <li class="navText"  ><a class="navText" ng-class="navText" ui-sref="home">админ</a></li>
             <li ><a ui-sref="control">руководитель</a></li>
             <li ><a ui-sref="account">пользователь</a></li>
-            <li ><a ui-sref="login">login</a></li>
-            <li ><a ui-sref="register">registrate</a></li>
-
             <li><a href="/login" target="_self">выход</a></li>
         </ul>
         <div class="flash-message" ng-if="flash">
@@ -35,19 +32,17 @@
     <footer></footer>
 
     <!-- external scripts -->
-
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-    <script src="lib/mask.js"></script>
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="lib/angular-strap.js"></script>
-    <script src="lib/angular-strap.tpl.js"></script>
-    <script src="lib/ng-auth.js"></script>
-    <script src="https://code.angularjs.org/1.5.8/angular-animate.js"></script>
-    <script src="https://code.angularjs.org/1.5.8/angular-sanitize.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
-
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="bower_components/ng-auth/dist/ng-auth.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 
     <!-- application scripts -->
     <script src="app.js"></script>
@@ -55,8 +50,6 @@
     <script src="services/crud.service.js"></script>
     <script src="controllers/modalsController.js"></script>
     <script src="controllers/workersController.js"></script>
-    <script src="controllers/registerController.js"></script>
-    <script src="controllers/loginController.js"></script>
 
 
 </body>
