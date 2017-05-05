@@ -68,7 +68,6 @@ module.exports.getUserById = function (_id) {
             deferred.resolve();
         }
     });
-
     return deferred.promise;
 };
 //GET users
@@ -165,11 +164,13 @@ module.exports.updateUser = function (_id, userParam) {
     };
     return deferred.promise;
 };
+
 // DELETE user
 module.exports._delete = function (_id, callback) {
     var query ={_id: _id};
     User.remove(query, callback);
 };
+
 // AUTH user
 module.exports.authenticate = function (username, password) {
     var deferred = Q.defer();
@@ -179,7 +180,7 @@ module.exports.authenticate = function (username, password) {
 
         if (user && bcrypt.compareSync(password, user.hash)) {
             // authentication successful
-            deferred.resolve(jwt.sign({ sub: user._id }, config.secret));
+            deferred.resolve(jwt.sign({ username: user.username, role:user.role }, config.secret));
         } else {
             // authentication failed
             deferred.resolve();
@@ -187,3 +188,19 @@ module.exports.authenticate = function (username, password) {
     });
     return deferred.promise;
 };
+
+// module.exports.authenticate = function (username, password) {
+//     var deferred = Q.defer();
+//
+//     User.findOne({ username: username }, function (err, user) {
+//         if (err) deferred.reject(err);
+//         if (user && bcrypt.compareSync(password, user.hash)) {
+//             // authentication successful
+//             deferred.resolve(jwt.sign({ sub: user._id }, config.secret));
+//         } else {
+//             // authentication failed
+//             deferred.resolve();
+//         }
+//     });
+//     return deferred.promise;
+// };

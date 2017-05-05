@@ -22,7 +22,7 @@
     "angular": "1.5.8",
     "bootstrap": "3.3.1",
     "bootstrap-material-design": "0.5.10",
-    "angular-ui-router": "1.0.1",
+    "angular-ui-router": "0.2.5",
     "jquery": "1.11.3",
     "angular-strap": "^2.3.12",
     "ng-auth": "1.1.4",

@@ -1,10 +1,10 @@
-﻿var config = require('config.js');
+﻿﻿var config = require('config.js');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
 // routes
-router.post('/authenticate', authenticateUser);
+router.post('/login', authenticate);
 router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
@@ -13,42 +13,10 @@ router.get('/', getAll);
 
 module.exports = router;
 
-function getAll (req,res) {
+router.get('/me', me);
 
-    var page = +req.query['page'];
-    var limit = +req.query['limit'];
-
-    User.paginate({},{page: page, limit: limit }, function (err, data) {
-        res.send(data);
-    });
-};
-
-function authenticateUser(req, res) {
-
-    User.authenticate(req.body.username, req.body.password)
-        .then(function (token) {
-            if (token) {
-                // authentication successful
-                res.send({ token: token });
-            } else {
-                // authentication failed
-                res.status(401).send('Username or password is incorrect');
-            }
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-
-};
-
-function registerUser(req, res) {
-    User.addUser(req.body)
-        .then(function () {
-            res.sendStatus(200);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
+function me (req, res) {
+    res.send(req.user);
 };
 
 function getCurrentUser(req, res) {
@@ -65,8 +33,42 @@ function getCurrentUser(req, res) {
         });
 };
 
-function updateUser(req, res) {
+function getAll (req,res) {
+    var page = +req.query['page'];
+    var limit = +req.query['limit'];
+    User.paginate({},{page: page, limit: limit }, function (err, data) {
+        res.send(data);
+    });
+};
 
+function authenticate (req, res) {
+    var body = req.body;
+    User.authenticate(body.username, body.password)
+        .then(function (token) {
+            if (token) {
+                // authentication successful
+                res.send({ token: token, user: body });
+            } else {
+                // authentication failed
+                res.status(401).send('Username or password is incorrect');
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+};
+
+function registerUser(req, res) {
+    User.addUser(req.body)
+        .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+};
+
+function updateUser(req, res) {
     User.updateUser(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
@@ -84,6 +86,5 @@ function deleteUser(req, res) {
         }
         res.json(user);
     })
-
 };
 

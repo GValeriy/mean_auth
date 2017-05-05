@@ -1,4 +1,4 @@
-﻿<div class="navbar navbar-inverse" id="nav">
+﻿﻿<div class="navbar navbar-inverse" id="nav">
     <div class="container">
         <div class="navbar-header">
             <a class=" navbar-brand globalText" href="#"><b>List of workers</b></a>
@@ -9,7 +9,9 @@
 
         <div class="nav navbar-nav navbar-right ">
             <!--Angular add modal button-->
-            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="workCtrl.openAdd()">Add worker
+            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="openAdd()">Add worker
+            </button>
+            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="logout()">Logout
             </button>
         </div>
     </div>
@@ -51,7 +53,7 @@
                         <td>{{worker.role}}</td>
                         <td>
                             <button type="button" class="btn btn-raised buttons btn-primary"
-                                    ng-click="workCtrl.openEdit(worker)">Update
+                                    ng-click="openEdit(worker)">Update
                             </button>
 
                             <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>

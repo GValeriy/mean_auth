@@ -1,4 +1,4 @@
-﻿(function () {
+﻿﻿(function () {
     'use strict';
 
     angular
@@ -6,14 +6,14 @@
         .config(config)
         .run(run);
 
-    function config($stateProvider, $urlRouterProvider) {
-
+    function config($stateProvider, $urlRouterProvider,$httpProvider) {
+        $httpProvider.interceptors.push('AuthInterceptor');
         // default route
         $urlRouterProvider.otherwise("/");
 
         $stateProvider
             .state('home', {
-                url: '/',
+                url: '/admin',
                 templateUrl: 'views/admin.html',
                 controller: 'workersController',
                 controllerAs: 'workCtrl',
@@ -39,47 +39,53 @@
                     role: 'control'
                 }
             })
+            .state('login', {
+                url: '/',
+                templateUrl: 'views/login.html',
+                controller: 'authController',
+                controllerAs: 'authCtrl',
+                data: {
 
+                }
+            })
     };
 
-    function run($http, $rootScope,$state, $window, crudService) {
+    function run($http, $rootScope,$state, $window, crudService,userFactory) {
+
         // add JWT token as default auth header
+        $rootScope.$on('$stateChangeSuccess', function(e, to) {
 
+            // crudService.GetCurrent().then(function (user) {
+            //     console.log("asdasd",user);
 
-        $http.defaults.headers.common['Authorization'] = 'Bearer ' + $window.jwtToken;
-
-    $rootScope.$on('$stateChangeSuccess', function(e, to) {
-
-        crudService.GetCurrent().then(function (user) {
-            var auth = user.role;
-            console.log("asdasd",auth);
-            if (to.data.role !=='admin' && auth === 'Администратор' ) {
-                e.preventDefault();
-                alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
-                $state.go('home');
-            }
-            if (to.data.role !== 'user' && auth === 'Пользователь' || auth === undefined) {
-                e.preventDefault();
-                alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
-                $state.go('account');
-            }
-            if (to.data.role !== 'control' && auth === 'Руководитель') {
-                e.preventDefault();
-                alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
-                $state.go('control');
-            }
+                // userFactory.getUser().then(function success(response) {
+                //     var user = response.data;
+                //     console.log('User is ', response);
+                // });
+                // var auth = user.role;
+                // console.log("asdasd",auth);
+                // if (to.data.role !=='admin' && auth === 'Администратор' ) {
+                //     e.preventDefault();
+                //     alert("Упс! Простите, но с учетной записи администратора вам доступна только страница админа...");
+                //     $state.go('home');
+                // }
+                // if (to.data.role !== 'user' && auth === 'Пользователь' || auth === undefined) {
+                //     e.preventDefault();
+                //     alert("Упс! Простите, но с учетной записи пользователя вам доступна только страница с вашей информацией...");
+                //     $state.go('account');
+                // }
+                // if (to.data.role !== 'control' && auth === 'Руководитель') {
+                //     e.preventDefault();
+                //     alert("Упс! Простите, но с учетной записи руководителя вам доступна только страница руководителя...");
+                //     $state.go('control');
+                // }
+            // });
         });
-    });
     };
 
-    // manually bootstrap angular after the JWT token is retrieved from the server
     $(function () {
-        // get JWT token from server
-        $.get('/app/token', function (token) {
-            window.jwtToken = token;
-
             angular.bootstrap(document, ['app']);
-        });
     });
+
     })();
 

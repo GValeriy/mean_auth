@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html >
 <head >
     <meta charset="utf-8" />
@@ -18,7 +18,8 @@
             <li class="navText"  ><a class="navText" ng-class="navText" ui-sref="home">админ</a></li>
             <li ><a ui-sref="control">руководитель</a></li>
             <li ><a ui-sref="account">пользователь</a></li>
-            <li><a href="/login" target="_self">выход</a></li>
+            <li ><a ui-sref="login">login</a></li>
+
         </ul>
         <div class="flash-message" ng-if="flash">
             <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
@@ -46,11 +47,13 @@
 
     <!-- application scripts -->
     <script src="app.js"></script>
-    <script src="services/flash.service.js"></script>
-    <script src="services/crud.service.js"></script>
+    <script src="services/flashService.js"></script>
+    <script src="services/crudService.js"></script>
+    <script src="services/authInterceptor.js"></script>
+    <script src="services/userFactory.js"></script>
     <script src="controllers/modalsController.js"></script>
     <script src="controllers/workersController.js"></script>
-
+    <script src="controllers/authController.js"></script>
 
 </body>
 </html>
