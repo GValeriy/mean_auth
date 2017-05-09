@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // use JWT auth to secure the app
-// app.use(expressJwt({ secret: config.secret }).unless({ path: [ '/api/users/login' ]}));
+app.use(expressJwt({ secret: config.secret,credentialsRequired: false }).unless({ path: [ '/api/users/login' ]}));
 
 // routes
 app.use('/api/users', require('./routes/users.controller.js'));

@@ -188,19 +188,3 @@ module.exports.authenticate = function (username, password) {
     });
     return deferred.promise;
 };
-
-// module.exports.authenticate = function (username, password) {
-//     var deferred = Q.defer();
-//
-//     User.findOne({ username: username }, function (err, user) {
-//         if (err) deferred.reject(err);
-//         if (user && bcrypt.compareSync(password, user.hash)) {
-//             // authentication successful
-//             deferred.resolve(jwt.sign({ sub: user._id }, config.secret));
-//         } else {
-//             // authentication failed
-//             deferred.resolve();
-//         }
-//     });
-//     return deferred.promise;
-// };

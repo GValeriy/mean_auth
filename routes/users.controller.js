@@ -1,4 +1,4 @@
-﻿﻿var config = require('config.js');
+﻿﻿﻿var config = require('config.js');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
@@ -6,7 +6,6 @@ var User = require('../models/user');
 // routes
 router.post('/login', authenticate);
 router.post('/register', registerUser);
-router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
 router.get('/', getAll);
@@ -19,21 +18,8 @@ function me (req, res) {
     res.send(req.user);
 };
 
-function getCurrentUser(req, res) {
-    User.getUserById(req.user.sub)
-        .then(function (user) {
-            if (user) {
-                res.send(user);
-            } else {
-                res.sendStatus(404);
-            }
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-};
-
 function getAll (req,res) {
+    if (!req.user) return res.sendStatus(401);
     var page = +req.query['page'];
     var limit = +req.query['limit'];
     User.paginate({},{page: page, limit: limit }, function (err, data) {
@@ -69,6 +55,7 @@ function registerUser(req, res) {
 };
 
 function updateUser(req, res) {
+    if (!req.user) return res.sendStatus(401);
     User.updateUser(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
@@ -79,6 +66,7 @@ function updateUser(req, res) {
 };
 
 function deleteUser(req, res) {
+    if (!req.user) return res.sendStatus(401);
     var id = req.params._id;
     User._delete(id, function (err, user) {
         if(err){
