@@ -1,4 +1,4 @@
-﻿﻿body {
+﻿body {
     padding: 20px 0;
     background-color: #edeae1;
 }
@@ -7,9 +7,12 @@
 }
 #nav{
     color: black;
-    background-color: #e7e3d6;
+    background-color: #FFF;
     box-shadow: 0 16px 10px -12px rgba(0,0,0,0.3);
     border: 0;
+}
+.headerSearchButton{
+    margin:15px;
 }
 .setItems {
     margin: 20px 20px;
@@ -48,39 +51,48 @@
 }
 .btn.btn-raised.btn-primary
 {
-    background-color: #dad4c1;
-    color: #000;
+    background-color: #665851;
+    color:white;
 }
 .btn.btn-raised:not(.btn-link):hover.btn-primary
 {
-    background-color: #d4cdb6;
+    background-color: #665851;
+    color:white;
 }
 .btn.btn-raised:not(.btn-link):focus.btn-primary
 {
-    background-color: #dad4c1;
+    background-color: #665851;
+    color:white;
 }
 .btn.btn-raised:not(.btn-link):active.btn-primary
 {
-    background-color: #dad4c1;
+    background-color: #665851;
+    color:white;
 }
-
 .firstRow
 {
-    background-color:#dad4c1;
+    background-color:#665851;
+    color:white;
+}
+.newRow
+{
+    background-color:#665851;
+    color:white;
+    text-align: center;
+    font-size: 28px;
+    padding:15px;
 }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
 .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
 {
-    background-color: #d4cdb6;
-    border-color: #c7bea1;
+    background-color: #665851;
+    border-color: #665851;
     color:black;
 }
-
 .pagination>li>a, .pagination>li>a:hover
 {
     color: black;
 }
-
 .nav-tabs > li > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus{
     color:black !important;
 }
@@ -91,3 +103,8 @@
 {
     color: #000;
 }
+.genderRow
+{
+    margin-left:20%;
+}
+

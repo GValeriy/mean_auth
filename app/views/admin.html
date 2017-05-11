@@ -1,19 +1,23 @@
-﻿﻿﻿<div class="navbar navbar-inverse" id="nav">
+﻿﻿﻿
+<div class="newRow">
+    <b>List of workers</b>
+
+</div>
+<div  class="navbar  navbar-inverse" id="nav">
     <div class="container">
+
         <div class="navbar-header">
-            <a class=" navbar-brand globalText" href="#"><b>List of workers</b></a>
             <div class="form-group">
-                <input type="text" class="form-control" ng-model="searchWord" placeholder="Search">
+                <div class="row">
+                <input type="text" class="headerSearchButton form-control" ng-model="searchWord" placeholder="Search">
+
+                <button type="button" class="headerButton btn btn-raised btn-primary addButton" ng-click="openAdd()">Add worker</button>
+                <a href="#/login"> <button type="button" class="btn btn-raised btn-primary addButton" ng-click="logout()">Logout</button></a>
+
+                </div>
             </div>
         </div>
 
-        <div class="nav navbar-nav navbar-right ">
-            <!--Angular add modal button-->
-            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="openAdd()">Add worker
-            </button>
-            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="logout()">Logout
-            </button>
-        </div>
     </div>
 
 </div>
@@ -31,6 +35,7 @@
                         <th class="globalText">Name</th>
                         <th class="globalText">Patronymic</th>
                         <th class="globalText">Surname</th>
+                        <th class="globalText">Username</th>
                         <th class="globalText">Post</th>
                         <th class="globalText">Gender</th>
                         <th class="globalText">Tel. number</th>
@@ -46,8 +51,9 @@
                         <td>{{worker.name}}</td>
                         <td>{{worker.patronymic}}</td>
                         <td>{{worker.surname}}</td>
+                        <td>{{worker.username}}</td>
                         <td>{{worker.post}}</td>
-                        <td>{{worker.sex}}</td>
+                        <td>{{worker.gender}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
                         <td>{{worker.role}}</td>
@@ -55,8 +61,7 @@
                             <button type="button" class="btn btn-raised buttons btn-primary"
                                     ng-click="openEdit(worker)">Update
                             </button>
-
-                            <a class="btn btn-raised btn-primary" ng-click="removeWorker(worker._id)" href="#">Del</a>
+                            <a class="btn btn-raised btn-primary" ng-click="delete(worker._id)">Del</a>
                         </td>
 
                     </tr>
@@ -136,9 +141,29 @@
                                         <div class="col-md-10">
                                             <input type="text" class="form-control" id="angEditInput3"
                                                    ng-model="worker.surname" placeholder="Surname" required>
-
                                         </div>
                                     </div>
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.username, 'has-success': worker.username  }">
+                                        <label  class="col-md-2 control-label">Username</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control"
+                                                   ng-model="worker.username" placeholder="Username" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': !worker.password, 'has-success': worker.password  }">
+                                        <label  class="col-md-2 control-label">Password</label>
+
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control"
+                                                   ng-model="worker.password" placeholder="Password" required>
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group"
                                          ng-class="{ 'has-error': !worker.post, 'has-success': worker.post  }">
                                         <label for="angEditInput4" class="col-md-2 control-label">Post</label>
@@ -156,16 +181,16 @@
                                     </div>
 
                                     <div class="form-group"
-                                         ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
+                                         ng-class="{ 'has-error': !worker.gender, 'has-success': worker.gender  }">
 
                                         <label class="col-md-2 control-label">Gender</label>
 
                                         <div class="col-md-5 modalInput">
-                                            <input type="radio" name="answer" value="female" ng-model="worker.sex"/>Female
+                                            <input type="radio" name="answer" value="female" ng-model="worker.gender"/>Female
                                         </div>
 
                                         <div class="col-md-5 modalInput">
-                                            <input type="radio" name="answer" value="male" ng-model="worker.sex"/>Male
+                                            <input type="radio" name="answer" value="male" ng-model="worker.gender"/>Male
                                         </div>
                                     </div>
 
@@ -326,16 +351,16 @@
                                     </div>
 
                                     <div class="form-group"
-                                         ng-class="{ 'has-error': !worker.sex, 'has-success': worker.sex  }">
+                                         ng-class="{ 'has-error': !worker.gender, 'has-success': worker.gender  }">
 
                                         <label class="col-md-2 control-label">Gender</label>
 
                                         <div class="col-md-5 modalInput">
 
-                                            <input type="radio" name="answer" value="female" ng-model="worker.sex"/>female
+                                            <input type="radio" name="answer" value="female" ng-model="worker.gender"/>female
                                         </div>
                                         <div class="col-md-5 modalInput">
-                                            <input type="radio" name="answer" value="male" ng-model="worker.sex"/>male
+                                            <input type="radio" name="answer" value="male" ng-model="worker.gender"/>male
 
                                         </div>
                                     </div>

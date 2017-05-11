@@ -7,24 +7,13 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link href="style/app.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style/login.css">
 
 </head>
-<body class="container">
-    <!-- header -->
-    <header >
-        <ul class="nav navText firstRow nav-tabs menu">
-            <li class="navText"  ><a class="navText" ng-class="navText" ui-sref="home">админ</a></li>
-            <li ><a ui-sref="control">руководитель</a></li>
-            <li ><a ui-sref="account">пользователь</a></li>
-            <li ><a ui-sref="login">login</a></li>
-
-        </ul>
-        <div class="flash-message" ng-if="flash">
-            <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
-        </div>
-    </header>
+<body >
 
     <!-- main -->
     <main ui-view></main>
@@ -54,6 +43,7 @@
     <script src="controllers/modalsController.js"></script>
     <script src="controllers/workersController.js"></script>
     <script src="controllers/authController.js"></script>
+    <script src="controllers/userController.js"></script>
 
 </body>
 </html>

@@ -5,7 +5,6 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var config = require('./config'); // get our config file
-
 var mongoose = require('mongoose');
 
 app.use(express.static(__dirname + '/app'));

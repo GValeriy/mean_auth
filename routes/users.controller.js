@@ -1,4 +1,4 @@
-﻿﻿﻿var config = require('config.js');
+﻿var config = require('config.js');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
@@ -19,7 +19,7 @@ function me (req, res) {
 };
 
 function getAll (req,res) {
-    if (!req.user) return res.sendStatus(401);
+    // if (!req.user) return res.sendStatus(401);
     var page = +req.query['page'];
     var limit = +req.query['limit'];
     User.paginate({},{page: page, limit: limit }, function (err, data) {

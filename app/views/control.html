@@ -1,19 +1,20 @@
-﻿﻿﻿<div class="navbar navbar-inverse" id="nav">
-    <div class="container">
-        <div class="navbar-header">
-            <a class=" navbar-brand globalText" href="#"><b>List of workers</b></a>
-            <div class="form-group">
-                <input type="text" class="form-control" ng-model="searchWord" placeholder="Search">
-            </div>
-        </div>
-        <div class="nav navbar-nav navbar-right ">
-            <!--Angular add modal button-->
-            <button type="button" class="btn btn-raised btn-primary addButton" ng-click="logout()">Logout
-            </button>
-        </div>
-    </div>
+﻿<div class="newRow">
+    <b>List of workers</b>
 
 </div>
+<div  class="navbar  navbar-inverse" id="nav">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="form-group">
+                <div class="row">
+                    <input type="text" class="headerSearchButton form-control" ng-model="searchWord" placeholder="Search">
+
+                    <a href="#/login"> <button type="button" class="btn btn-raised btn-primary addButton" ng-click="logout()">Logout</button></a>
+
+                </div>
+            </div>
+        </div>
+
 </div>
 </div>
 <!--List of workers-->
@@ -43,7 +44,7 @@
                         <td>{{worker.patronymic}}</td>
                         <td>{{worker.surname}}</td>
                         <td>{{worker.post}}</td>
-                        <td>{{worker.sex}}</td>
+                        <td>{{worker.gender}}</td>
                         <td>{{worker.phone}}</td>
                         <td>{{worker.work_start }} – {{worker.work_stop}}</td>
 

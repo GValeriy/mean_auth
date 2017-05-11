@@ -32,7 +32,7 @@ var userSchema = Schema({
     post:{
         type: String
     },
-    sex:{
+    gender:{
         type: String
     },
     phone:{
@@ -142,7 +142,7 @@ module.exports.updateUser = function (_id, userParam) {
             role:userParam.role,
             patronymic:userParam.patronymic,
             post:userParam.post,
-            sex:userParam.sex,
+            gender:userParam.gender,
             phone:userParam.phone,
             work_start:userParam.work_start,
             work_stop:userParam.work_stop
@@ -161,6 +161,7 @@ module.exports.updateUser = function (_id, userParam) {
 
                 deferred.resolve();
             });
+
     };
     return deferred.promise;
 };
@@ -180,7 +181,18 @@ module.exports.authenticate = function (username, password) {
 
         if (user && bcrypt.compareSync(password, user.hash)) {
             // authentication successful
-            deferred.resolve(jwt.sign({ username: user.username, role:user.role }, config.secret));
+            deferred.resolve(jwt.sign({
+                _id: user._id,
+                username: user.username,
+                role:user.role,
+                name:user.name,
+                surname:user.surname,
+                patronymic:user.patronymic,
+                post:user.post,
+                gender:user.gender,
+                phone:user.phone,
+                work_start:user.work_start,
+                work_stop:user.work_stop }, config.secret));
         } else {
             // authentication failed
             deferred.resolve();

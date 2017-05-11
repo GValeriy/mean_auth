@@ -1,7 +1,46 @@
-<form >
-    <label>Username: <input type="text" ng-model="authCtrl.username"/></label><br/>
-    <label>Password: <input type="password" ng-model="authCtrl.password"/></label><br/>
-    <button ng-click="login(authCtrl.username, authCtrl.password)" type="submit">Login</button>
-    <button ng-click="logout()">Logout</button>
-    <!--<button >Registrate</button>-->
-</form>
+ <body>
+ <div class="container" ng-hide="showme">
+     <div class="top">
+         <h1 id="title" class="hidden"><span id="logo">Daily <span>UI</span></span></h1>
+     </div>
+     <div class="login-box animated fadeInUp">
+         <div class="box-header">
+             <h2>Log In</h2>
+         </div>
+         <label for="username">Username</label>
+         <br/>
+         <input ng-model="authCtrl.username" type="text" id="username">
+         <br/>
+         <label for="password">Password</label>
+         <br/>
+         <input ng-model="authCtrl.password" type="password" id="password">
+         <br/>
+       <button ng-click="login(authCtrl.username, authCtrl.password)"  type="submit">Sign In</button>
+         <button ng-click="logout()" type="submit">Log out</button>
+         <br/>
+         <a href="#" ng-click="showme=true"><p class="small">Didn`t registrate yet?</p></a>
+     </div>
+ </div>
+ <div class="container" ng-show="showme">
+     <div class="top">
+         <h1 id="titleReg" class="hidden"><span id="logoReg">Daily <span>UI</span></span></h1>
+     </div>
+     <div class="login-box animated fadeInUp">
+         <div class="box-header">
+             <h2>Registrate</h2>
+         </div>
+         <label for="username">Username</label>
+         <br/>
+         <input ng-model="user.username" type="text" id="usernameReg" required>
+         <br/>
+         <label for="password">Password</label>
+         <br/>
+         <input ng-model="user.password" type="password" id="passwordReg" required>
+         <br/>
+         <a href="#"></a><button ng-click="reg(); showme=false" type="submit">registrate</button>
+         <br/>
+         <a href="#" ng-click="showme=false"><p class="small">Do you already have got account?</p></a>
+     </div>
+ </div>
+ </body>
+

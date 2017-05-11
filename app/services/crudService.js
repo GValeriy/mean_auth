@@ -7,10 +7,8 @@ function crudService($http, $q) {
 
     var service = {};
 
-    service.GetCurrent = GetCurrent;
+
     service.getAll = getAll;
-    service.GetById = GetById;
-    service.GetByUsername = GetByUsername;
     service.Create = Create;
     service.Authenticate = Authenticate;
     service.Update = Update;
@@ -26,19 +24,12 @@ function crudService($http, $q) {
             }
         });
     };
-    function GetCurrent() {
-        return $http.get('/api/users/current').then(handleSuccess, handleError);
-    };
-    function GetById(_id) {
-        return $http.get('/api/users/' + _id).then(handleSuccess, handleError);
-    };
-    function GetByUsername(username) {
-        return $http.get('/api/users/' + username).then(handleSuccess, handleError);
-    };
+
     function Create(user) {
         return $http.post('/api/users/register', user).then(handleSuccess, handleError);
     };
     function Update(user) {
+        console.log(user);
         return $http.put('/api/users/' + user._id, user).then(handleSuccess, handleError);
     };
     function Delete(_id) {

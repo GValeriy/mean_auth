@@ -5,7 +5,8 @@ app.factory('userFactory', function userFactory($http, AuthInterceptor, $q) {
     return {
         login: login,
         logout: logout,
-        getUser: getUser
+        getUser: getUser,
+        reg: reg
     };
 
     function login(username, password) {
@@ -16,6 +17,10 @@ app.factory('userFactory', function userFactory($http, AuthInterceptor, $q) {
             AuthInterceptor.setToken(response.data.token);
             return response;
         });
+    };
+
+    function reg(user) {
+        return $http.post('/api/users/register', user).then(handleSuccess, handleError);
     };
 
     function logout() {
@@ -29,6 +34,12 @@ app.factory('userFactory', function userFactory($http, AuthInterceptor, $q) {
             return $q.reject({ data: 'client has no auth token' });
         }
     };
-
+    // private functions
+    function handleSuccess(res) {
+        return res.data;
+    };
+    function handleError(res) {
+        return $q.reject(res.data);
+    };
     
 });

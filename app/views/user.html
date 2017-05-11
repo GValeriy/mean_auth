@@ -1,116 +1,126 @@
-﻿﻿﻿<h1>My Account</h1>
-<div class="form-container">
-    <form method="post">
-
-        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.name, 'has-success': workCtrl.worker.name  }">
-            <label class=" control-label" for="name">Name</label>
-            <input type="text" id="name" class="form-control" ng-model="workCtrl.worker.name" required />
+﻿<div class="container">
+    <div class="top">
+        <h1  class="hidden"><span >Daily <span>UI</span></span></h1>
+    </div>
+    <div class="login-box animated fadeInUp">
+        <div class="box-header">
+            <h2>User`s information</h2>
         </div>
+        <label >Username</label>
+        <br/>
+        <input ng-model="worker.username" type="text" >
+        <br/>
+        <label >Password</label>
+        <br/>
+        <input ng-model="worker.password" type="password" >
+        <br/>
+        <label >Name</label>
+        <br/>
+        <input ng-model="worker.name" type="text" >
+        <br/>
 
-        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.patronymic, 'has-success': workCtrl.worker.patronymic  }">
-            <label class=" control-label" >Patronymic</label>
-            <input type="text" id="name1" class="form-control" ng-model="workCtrl.worker.patronymic" required />
-        </div>
+        <label >Surname</label>
+        <br/>
+        <input ng-model="worker.surname" type="text" >
+        <br/>
 
-        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.surname, 'has-success': workCtrl.worker.surname  }">
-            <label class=" control-label" for="lastName">Surname</label>
-            <input type="text" id="lastName" class="form-control" ng-model="workCtrl.worker.surname" required />
-        </div>
+        <label >Patronymic</label>
+        <br/>
+        <input ng-model="worker.patronymic" type="text" >
+        <br/>
 
-        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.username, 'has-success': workCtrl.worker.username  }">
-            <label class=" control-label" for="username">Username</label>
-            <input type="text" id="username" class="form-control" ng-model="workCtrl.worker.username" required />
-        </div>
-
-         <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.password, 'has-success': workCtrl.worker.password}">
-             <label class=" control-label"  for="password">Password</label>
-             <input type="password" id="password" class="form-control" ng-model="workCtrl.worker.password" />
-          </div>
-
-        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.post, 'has-success': workCtrl.worker.post  }">
-        <label for="angEditInput4" class="control-label">Post</label>
-        <select id="angEditInput4"
-        ng-model="workCtrl.worker.post" class="form-control">
-        <option>Programmer</option>
-        <option>Designer</option>
-        <option>Manager</option>
-        <option>Staff</option>
-        <option>Student</option>
-        </select>
-        </div>
-
-
-        <div class="form-group" ng-class="{ 'has-error': !workCtrl.worker.sex, 'has-success': workCtrl.worker.sex  }">
-
-        <label class="control-label">Gender</label>
-
-        <div class="row">
+        <label >Gender</label>
+        <br/>
+        <div class="row genderRow">
         <div class="col-md-4 userModalInput">
-
-        <input  type="radio" name="answer" value="female" ng-model="workCtrl.worker.sex"/>female
+        <input  type="radio" name="answer" value="female" ng-model="worker.gender"/>female
         </div>
+
         <div class="col-md-4 userModalInput">
-        <input  type="radio" name="answer" value="male" ng-model="workCtrl.worker.sex"/>male
+        <input  type="radio" name="answer" value="male" ng-model="worker.gender"/>male
 
         </div>
         </div>
-        </div>
-        </form>
 
-        <div class="form-group"
-        ng-class="{ 'has-error': !workCtrl.worker.phone, 'has-success': workCtrl.worker.phone  }">
         <label class=" control-label">Phone number</label>
         <div>
         <input class="userModalInput" type="text" ui-mask="+3(099) 999-99-99"
-        ng-model="workCtrl.worker.phone" model-view-value="true">
-        </div>
-        </div>
-        <div class="row ">
-
-        <div class="col-md-4 worktime">
-        <div class="form-group"
-        ng-class="{ 'has-error': !workCtrl.worker.work_start, 'has-success': workCtrl.worker.work_start}">
-
-        <label class="col-md-4 control-label">Start of workday</label>
-
-
-        <div class="col-md-8 userModalInput">
-
-        <input type="text" class="form-control" size="8"
-        ng-model="workCtrl.worker.work_start" bs-timepicker
-        data-time-format="HH:mm" data-time-type="string" data-length="1"
-        data-minute-step="1" data-arrow-behavior="picker">
-        </div>
-        </div>
+        ng-model="worker.phone" model-view-value="true">
         </div>
 
-        <div class="col-md-4">
-        <div class="form-group"
-        ng-class="{ 'has-error': !workCtrl.worker.work_stop, 'has-success': workCtrl.worker.work_stop}">
-
-        <label class="col-md-4 control-label">End of workday</label>
-
-        <div class="col-md-8 userModalInput">
-
-        <input type="text" class="form-control" size="8" ng-model="workCtrl.worker.work_stop"
-        bs-timepicker
-        data-time-format="HH:mm" data-time-type="string" data-length="1"
-        data-minute-step="1" data-arrow-behavior="picker">
-
-        </div>
-        </div>
-        </div>
-
-
-    </form>
-        </div>
-        </div>
-        </div>
-
+        <div class="col-md-12 worktime">
 
         <div class="form-group">
-            <button class="btn btn-primary" ng-click="workCtrl.saveUser()">Save</button>
-            <button class="btn btn-danger" ng-click="logout()">logout</button>
+        <label class="col-md-4 control-label">Start of workday</label>
+        <div class="col-md-8 userModalInput">
+        <input type="text" class="form-control" size="8"
+        ng-model="worker.work_start" bs-timepicker
+        data-time-format="HH:mm" data-time-type="string" data-length="1"
+        data-minute-step="1" data-arrow-behavior="picker">
         </div>
-    </form>
-</div>
+        </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">End of workday</label>
+                <div class="col-md-8 userModalInput">
+                    <input type="text" class="form-control" size="8"
+                           ng-model="worker.work_stop" bs-timepicker
+                           data-time-format="HH:mm" data-time-type="string" data-length="1"
+                           data-minute-step="1" data-arrow-behavior="picker">
+                </div>
+            </div>
+
+        </div>
+
+        <button ng-click="save(worker)"  type="submit">Save</button>
+        <a href="#/login"> <button ng-click="logout()" type="submit">Log out</button></a>
+        <br/>
+    </div>
+</div>﻿﻿
+
+        <!--<div class="col-md-4 worktime">-->
+        <!--<div class="form-group"-->
+        <!--ng-class="{ 'has-error': !worker.work_start, 'has-success': worker.work_start}">-->
+
+        <!--<label class="col-md-4 control-label">Start of workday</label>-->
+
+
+        <!--<div class="col-md-8 userModalInput">-->
+
+        <!--<input type="text" class="form-control" size="8"-->
+        <!--ng-model="worker.work_start" bs-timepicker-->
+        <!--data-time-format="HH:mm" data-time-type="string" data-length="1"-->
+        <!--data-minute-step="1" data-arrow-behavior="picker">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-md-4">-->
+        <!--<div class="form-group"-->
+        <!--ng-class="{ 'has-error': !worker.work_stop, 'has-success': worker.work_stop}">-->
+
+        <!--<label class="col-md-4 control-label">End of workday</label>-->
+
+        <!--<div class="col-md-8 userModalInput">-->
+
+        <!--<input type="text" class="form-control" size="8" ng-model="worker.work_stop"-->
+        <!--bs-timepicker-->
+        <!--data-time-format="HH:mm" data-time-type="string" data-length="1"-->
+        <!--data-minute-step="1" data-arrow-behavior="picker">-->
+
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+    <!--</form>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="form-group">-->
+            <!--<button class="btn btn-primary" ng-click="saveUser()">Save</button>-->
+            <!--<a href="#/login"><button class="btn btn-danger" ng-click="logout()">logout</button></a>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</div>-->

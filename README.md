@@ -7,6 +7,7 @@
 ``` bash
 # install dependencies
 npm install
+bower install
 
 # start mongodb 
 mongod
